@@ -7,3 +7,5 @@ Below are the packages required to run this app
 
 To install flask as a global variable via pip, run `pip install flask`
 
+## Running the App
+To run the app by launching the homepage (http://127.0.0.1:5000/), run `python main.py`
