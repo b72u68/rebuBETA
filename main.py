@@ -22,6 +22,11 @@ drivers = [
 
 @app.route("/")
 def home():
+    return render_template("home.html")
+
+
+@app.route("/customer/")
+def customer_home():
     return render_template("home.html", drivers=drivers)
 
 

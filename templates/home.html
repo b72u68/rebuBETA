@@ -1,17 +1,27 @@
-{% extends 'base.html' %} {% block head %} {% endblock %} {% block body %}
-<h1>Nearby Drivers</h1>
-<table>
-  <tr>
-    <th>Name</th>
-    <th>Rating</th>
-    <th>Car Description</th>
-  </tr>
-  {% for driver in drivers %}
-  <tr>
-      <th>{{driver.name}}</th>
-      <th>{{driver.rating}}</th>
-      <th>{{driver.car_description}}</th>
-  </tr>
-  {% endfor %}
-</table>
-{% endblock %}
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+  	<title>Rebu: On-Demand Ridesharing</title>
+    <meta charset="utf-8">
+    <!-- bootstrap start -->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <!-- bootstrap end  -->
+  </head>
+  <body>
+    <div class="container-fluid">
+    	<div class="col-sm-6">
+    		<h5>Rebu</h5>
+    		<h1>On-Demand Ridesharing</h1>
+    		<p>Hail a driver as easy as 1, 2, 3!</p>
+    	</div>
+    	<div class="col-sm-6">
+    		<h1>Welcome to Rebu</h1>
+    		<p>Login below. New users can enter a new username & will be redirected to the sign-up page.</p>
+
+    	</div>
+    </div>
+  </body>
+</html>

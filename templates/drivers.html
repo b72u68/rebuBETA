@@ -1,0 +1,17 @@
+{% extends 'base.html' %} {% block head %} {% endblock %} {% block body %}
+<h1>Nearby Drivers</h1>
+<table>
+  <tr>
+    <th>Name</th>
+    <th>Rating</th>
+    <th>Car Description</th>
+  </tr>
+  {% for driver in drivers %}
+  <tr>
+    <th>{{ driver.name }}</th>
+    <th>{{ driver.rating }}</th>
+    <th>{{ driver.car_description }}</th>
+  </tr>
+  {% endfor %}
+</table>
+{% endblock %}
