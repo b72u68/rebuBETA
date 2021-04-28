@@ -1,23 +1,32 @@
 @import url('https://fonts.googleapis.com/css2?family=Questrial&display=swap');
 
+/*****************
+**** GENERAL *****
+******************/
 ::placeholder{
 	color: white;
 	opacity: .7;
-	text-align: center;
 }
-
-body h1, input, button, ::placeholder{
+body h1, h3, p, input, button, ::placeholder{
 	font-family: 'Questrial', sans-serif;
 }
-
 body h1{
 	color: white;
 	font-size: 70px;
 	text-align: center;
-	margin-top: 30px;
+	margin-top: 110px;
 	margin-bottom: 0px;
 }
-
+h3{
+	color: white;
+	text-align: center;
+	margin-top: 30px;
+}
+input{
+	border: none;
+	border-bottom: 1px solid rgba(255,255,255,.7);
+	background-color: transparent;
+}
 label {
 	color: rgba(255,255,255,.8);
 	font-size: 20px;
@@ -25,34 +34,29 @@ label {
 	display: inline;
 	padding-left: 4px;
 }
-
+nav{
+	color: white;
+	padding-top: 30px;
+	font-size: 20px;
+}
+nav p{
+	display: inline;
+	padding-bottom: 2px;
+}
+nav a{
+	color: white;
+}
+/*****************
+**** BUTTONS *****
+******************/
 button{
 	display: block;
 	border: none;
 }
-.user-bg {
-	padding-top: 80px;
-	min-height: 100vh;
-	background: rgb(62,214,179);
-	background: linear-gradient(180deg, rgba(62,214,179,1) 0%, rgba(12,4,203,1) 100%);
-}
 
-.homeFormInput{
-	border: none;
-	border-bottom: 1px solid rgba(255,255,255,.7);
-	background-color: transparent;
-	margin: auto;
-	display: block;
-	min-width: 280px;
-	margin-top: 45px;
-	font-size: 27px;
-}
-.homeFormInputRadio{
-	text-align: center;
-	margin-top: 15px;
-}
 .btnContainer{
 	margin-top: 60px;
+	margin-bottom: 60px;
 }
 .btnStyle1{
 	height: 40px;
@@ -61,7 +65,10 @@ button{
 	margin: 20px auto 0;
 	border-radius: 16px;
 }
-/*First color is bg. Second color is text*/
+/*
+First color is bg. 
+Second color is text
+*/
 .btnWhiteBlue{
 	color: rgb(39,122,212);
 	background-color: white;
@@ -70,3 +77,63 @@ button{
 	color: white;
 	background-color: rgb(48,158,185);
 }
+
+.user-bg {
+	min-height: 100vh;
+	background: rgb(62,214,179);
+	background: linear-gradient(180deg, rgba(62,214,179,1) 0%, rgba(12,4,203,1) 100%);
+}
+
+/*****************
+**** HOMEPAGE ****
+******************/
+.homeFormInput{
+	margin: auto;
+	display: block;
+	min-width: 280px;
+	margin-top: 45px;
+	font-size: 27px;
+}
+.homeFormInput::placeholder{
+	text-align: center;
+}
+.homeFormInputRadio{
+	text-align: center;
+	margin-top: 15px;
+	width: auto;
+}
+
+/*****************
+***** FORMS ******
+******************/
+.formSection{
+	width: 290px;
+	margin: auto;
+	margin-top: 70px;
+}
+.formSection p{
+	display: inline;
+	color: white;
+	font-size: 19px;
+	padding-left: 15px;
+}
+.formInput{
+	display: block;
+	margin-top: 10px;
+	width: 100%;
+	font-size: 22px;
+	color: rgba(255,255,255,0.7);
+}
+.inputHalf input{
+	display: inline;
+	width: 30%;
+	margin-right: 10px;
+}
+.radioFormContainer p{
+	margin-right: 10px;
+}
+.radioFormContainer input:first-child{
+	margin-left: 20%;
+}
+
+
