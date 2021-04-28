@@ -1,0 +1,72 @@
+@import url('https://fonts.googleapis.com/css2?family=Questrial&display=swap');
+
+::placeholder{
+	color: white;
+	opacity: .7;
+	text-align: center;
+}
+
+body h1, input, button, ::placeholder{
+	font-family: 'Questrial', sans-serif;
+}
+
+body h1{
+	color: white;
+	font-size: 70px;
+	text-align: center;
+	margin-top: 30px;
+	margin-bottom: 0px;
+}
+
+label {
+	color: rgba(255,255,255,.8);
+	font-size: 20px;
+	font-weight: normal;
+	display: inline;
+	padding-left: 4px;
+}
+
+button{
+	display: block;
+	border: none;
+}
+.user-bg {
+	padding-top: 80px;
+	min-height: 100vh;
+	background: rgb(62,214,179);
+	background: linear-gradient(180deg, rgba(62,214,179,1) 0%, rgba(12,4,203,1) 100%);
+}
+
+.homeFormInput{
+	border: none;
+	border-bottom: 1px solid rgba(255,255,255,.7);
+	background-color: transparent;
+	margin: auto;
+	display: block;
+	min-width: 280px;
+	margin-top: 45px;
+	font-size: 27px;
+}
+.homeFormInputRadio{
+	text-align: center;
+	margin-top: 15px;
+}
+.btnContainer{
+	margin-top: 60px;
+}
+.btnStyle1{
+	height: 40px;
+	width: 250px;
+	font-size: 20px;
+	margin: 20px auto 0;
+	border-radius: 16px;
+}
+/*First color is bg. Second color is text*/
+.btnWhiteBlue{
+	color: rgb(39,122,212);
+	background-color: white;
+}
+.btnBlueWhite{
+	color: white;
+	background-color: rgb(48,158,185);
+}
