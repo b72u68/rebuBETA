@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+  	<title>Rebu: On-Demand Ridesharing</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- bootstrap styling -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+
+    <!-- custom css styling  -->
+    <link rel="stylesheet" type= "text/css" href= "{{ url_for('static',filename='styles/main.css') }}">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Questrial&display=swap" rel="stylesheet">
+
+    <!-- bootstrap styling -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+
+    <!-- menu javascript -->
+    <script>
+      function toggleMenu() {
+        var x = document.getElementById("hiddenMenu");
+        if (x.style.display === "none") {
+          x.style.display = "block";
+        } else {
+          x.style.display = "none";
+        }
+      }
+    </script>
+  </head>
+  <body>
+    <div class="container-fluid user-bg">
+      
+      <!-- NAVAGATION BAR -->
+      <nav id="myTopnav" class="homePageNav">
+      	<p class="navTitle">REBU</p>
+        <a id="hamburgerMenu" href="javascript:void(0);" onclick="toggleMenu()">
+          <img src="{{url_for('static', filename='icons/hamburgerMenu.svg')}}" />
+        </a>
+      </nav>
+
+      <!-- HIDDEN MENU -->
+      <div id="hiddenMenu">
+        <a>sign out</a>
+        <a>edit account info</a>
+        <a>switch to driver</a>
+      </div>
+      <!-- GOOGLE API SCREEN -->
+
+      <!-- PLACE API CODE HERE -->
+
+
+
+
+
+      <!-- REQUEST RIDE CONTAINER  -->
+      <div class="requestRideContainer">
+        <p class="requestRideTitle">Request Ride</p>
+
+        <input class="formInput" placeholder="pickup location" type="text" name="">
+        <input class="formInput" placeholder="destination" type="text" name="">
+        <input class="formInput" placeholder="number of passangers (max 6)" type="text" name="">
+
+        <div class="radioRequestRideFormContainer">
+          <p>Carpool?</p>
+          <input type="radio" name="driverSignup" value="yes">
+          <p>Yes</p>
+          <input type="radio" name="driverSignup" value="no">
+          <p>No</p>
+        </div>
+
+        <div class="btnContainer">
+          <button class="btnStyle1 btnBlueWhite" id="homeForm">request</button>
+        </div>
+
+      </div>
+
+    </div>
+  </body>
+</html>
