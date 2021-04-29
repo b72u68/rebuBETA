@@ -17,14 +17,14 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
   </head>
   <body>
-    <div class="container-fluid user-bg">
+    <div class="container-fluid driver-bg">
       <nav>
       	<a href="#">
             <span class="glyphicon glyphicon-menu-left"></span>
             <p>Home</p>
         </a>
       </nav>
-      <h3>edit account</h3>
+      <h3>edit driver account</h3>
       <form>
         <!-- SECTION 1 -->
         <div class="formSection">
@@ -71,10 +71,25 @@
           </div>
         </div>
 
+        <!-- SECTION 4 -->
+        <div class="formSection">
+          <img src="{{url_for('static', filename='numbers/4.svg')}}" />
+          <p>car information</p>
+          
+          <h4 class="editLabel">license plate</h4>
+          <input class="formInput" placeholder="12X343P" type="text" name="licensePlateSignup">
+          <h4 class="editLabel">car manufacturer</h4>
+          <input class="formInput" placeholder="Ford" type="password" name="manufacturorSignup">
+          <h4 class="editLabel">total seats</h4>
+          <input class="formInput" placeholder="3" type="text" name="totalSeatsSignup">
+          <h4 class="editLabel">car description</h4>
+          <input class="formInput" placeholder="White ford with 5 seats" type="text" name="carDescriptionSignup">
+        </div>
+
 
       </form>
       <div class="btnContainer">
-        <button class="btnStyle1 btnWhiteNavyBlue" id="homeForm">submit change</button>
+        <button class="btnStyle1 btnWhitePurple" id="homeForm">submit change</button>
       </div>
     </div>
   </body>

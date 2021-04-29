@@ -82,6 +82,14 @@ Second color is text
 	color: rgb(118,36,92);
 	background-color: white;
 }
+.btnWhiteNavyBlue{
+	color: rgb(6,58,192);
+	background-color: white;
+}
+.btnWhitePurple{
+	color: rgb(66,45,139);
+	background-color: white;
+}
 /*****************
 **** HOMEPAGE ****
 ******************/
