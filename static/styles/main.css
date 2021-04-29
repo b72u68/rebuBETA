@@ -20,7 +20,8 @@ body h1{
 h3{
 	color: white;
 	text-align: center;
-	margin-top: 30px;
+	margin-top: 60px;
+	margin-bottom: 0px;
 }
 input{
 	border: none;
@@ -77,16 +78,19 @@ Second color is text
 	color: white;
 	background-color: rgb(48,158,185);
 }
-
+.btnWhitePink{
+	color: rgb(118,36,92);
+	background-color: white;
+}
+/*****************
+**** HOMEPAGE ****
+******************/
 .user-bg {
 	min-height: 100vh;
 	background: rgb(62,214,179);
 	background: linear-gradient(180deg, rgba(62,214,179,1) 0%, rgba(12,4,203,1) 100%);
 }
 
-/*****************
-**** HOMEPAGE ****
-******************/
 .homeFormInput{
 	margin: auto;
 	display: block;
@@ -109,7 +113,7 @@ Second color is text
 .formSection{
 	width: 290px;
 	margin: auto;
-	margin-top: 70px;
+	margin-top: 60px;
 }
 .formSection p{
 	display: inline;
@@ -136,4 +140,12 @@ Second color is text
 	margin-left: 20%;
 }
 
+/**********************
+**** DRIVER SIGNUP ****
+***********************/
+.driver-bg{
+	min-height: 100vh;
+	background: rgb(63,45,139);
+	background: linear-gradient(180deg, rgba(63,45,139,1) 0%, rgba(118,36,92,1) 100%);
+}
 
