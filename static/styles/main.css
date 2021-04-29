@@ -28,6 +28,9 @@ input{
 	border-bottom: 1px solid rgba(255,255,255,.7);
 	background-color: transparent;
 }
+input:focus{
+	outline: none;
+}
 label {
 	color: rgba(255,255,255,.8);
 	font-size: 20px;
@@ -47,6 +50,18 @@ nav p{
 nav a{
 	color: white;
 }
+.navTitle{
+	font-size: 30px;
+}
+.homePageNav{
+	margin-top: 20px;
+	margin-bottom: 20px;
+	padding-top: 0px;
+}
+#hamburgerMenu{
+	float: right;
+	padding-top: 3px;
+}
 /*****************
 **** BUTTONS *****
 ******************/
@@ -56,8 +71,8 @@ button{
 }
 
 .btnContainer{
-	margin-top: 60px;
-	margin-bottom: 60px;
+	padding-top: 60px;
+	padding-bottom: 60px;
 }
 .btnStyle1{
 	height: 40px;
@@ -161,4 +176,57 @@ Second color is text
 	background: rgb(63,45,139);
 	background: linear-gradient(180deg, rgba(63,45,139,1) 0%, rgba(118,36,92,1) 100%);
 }
+
+/***************************
+**** CACCOUNT HOMEPAGE  ****
+****************************/
+.requestRideContainer{
+	background-color: white;
+	margin:0 -15px;
+	padding-left: 15px;
+	padding-top: 15px;
+}
+.requestRideContainer input::placeholder{
+	color: rgb(178,179,178);
+}
+.requestRideContainer input{
+	font-size: 23px;
+	border-bottom-color: rgb(178,179,178);
+	margin-bottom: 21px;
+	color: black;
+}
+.requestRideContainer .btnContainer{
+	margin-left: -15px;
+}
+.radioRequestRideFormContainer p, .radioRequestRideFormContainer input{
+	display: inline;
+	font-size: 23px;
+}
+.requestRideTitle{
+	font-size: 28px;
+	color: rgb(104,165,181);
+}
+
+/*********************
+**** HIDDEN MENU  ****
+**********************/
+#hiddenMenu{
+	background-color: rgb(54,51,55);
+	margin: 0 -15px;
+	padding: 10px 15px;
+	display: none;
+}
+#hiddenMenu a{
+	display: block;
+	color: white;
+	font-size: 25px;
+	margin: 5px 0;
+}
+
+
+
+
+
+
+
 
