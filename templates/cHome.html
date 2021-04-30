@@ -17,16 +17,7 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 
     <!-- menu javascript -->
-    <script>
-      function toggleMenu() {
-        var x = document.getElementById("hiddenMenu");
-        if (x.style.display === "none") {
-          x.style.display = "block";
-        } else {
-          x.style.display = "none";
-        }
-      }
-    </script>
+    <script type="text/javascript" src="{{url_for('static', filename='js/main.js') }}"></script>
   </head>
   <body>
     <div class="container-fluid user-bg">
