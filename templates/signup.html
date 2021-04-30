@@ -1,16 +1,26 @@
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
   <head>
-  	<title>Rebu: On-Demand Ridesharing</title>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Rebu: On-Demand Ridesharing</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
     <!-- bootstrap styling -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <link
+      rel="stylesheet"
+      href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css"
+    />
 
     <!-- custom css styling  -->
-    <link rel="stylesheet" type= "text/css" href= "{{ url_for('static',filename='styles/main.css') }}">
-    <link rel="preconnect" href="https://fonts.gstatic.com">
-    <link href="https://fonts.googleapis.com/css2?family=Questrial&display=swap" rel="stylesheet">
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="{{ url_for('static',filename='styles/main.css') }}"
+    />
+    <link rel="preconnect" href="https://fonts.gstatic.com" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Questrial&display=swap"
+      rel="stylesheet"
+    />
 
     <!-- bootstrap styling -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
@@ -19,9 +29,9 @@
   <body>
     <div class="container-fluid user-bg">
       <nav>
-      	<a href="#">
-            <span class="glyphicon glyphicon-menu-left"></span>
-            <p>Back</p>
+        <a href="{{ url_for('home') }}">
+          <span class="glyphicon glyphicon-menu-left"></span>
+          <p>Back</p>
         </a>
       </nav>
       <h3>create a customer account</h3>
@@ -30,34 +40,88 @@
         <div class="formSection">
           <img src="{{url_for('static', filename='numbers/1.svg')}}" />
           <p>basic information</p>
-        
-          <input class="formInput" placeholder="email" type="text" name="emailSignup">
-          <input class="formInput" placeholder="new password" type="password" name="passwordSignup">
-          <input class="formInput" placeholder="first name" type="text" name="firstNameSignup">
-          <input class="formInput" placeholder="last name" type="text" name="lastNameSignup">
-          <input class="formInput" type="date" name="birthdaySignup">
+
+          <input
+            class="formInput"
+            placeholder="email"
+            type="text"
+            name="emailSignup"
+          />
+          <input
+            class="formInput"
+            placeholder="new password"
+            type="password"
+            name="passwordSignup"
+          />
+          <input
+            class="formInput"
+            placeholder="first name"
+            type="text"
+            name="firstNameSignup"
+          />
+          <input
+            class="formInput"
+            placeholder="last name"
+            type="text"
+            name="lastNameSignup"
+          />
         </div>
 
         <!-- SECTION 2 -->
         <div class="formSection">
           <img src="{{url_for('static', filename='numbers/2.svg')}}" />
           <p>mailing address</p>
-        
-          <input class="formInput" placeholder="street" type="text" name="streetSignup">
-          <input class="formInput" placeholder="city" type="password" name="citySignup">
-          <input class="formInput" placeholder="state" type="text" name="stateSignup">
-          <input class="formInput" placeholder="zip code" type="text" name="zipcodeSignup">
+
+          <input
+            class="formInput"
+            placeholder="street"
+            type="text"
+            name="streetSignup"
+          />
+          <input
+            class="formInput"
+            placeholder="city"
+            type="password"
+            name="citySignup"
+          />
+          <input
+            class="formInput"
+            placeholder="state"
+            type="text"
+            name="stateSignup"
+          />
+          <input
+            class="formInput"
+            placeholder="zip code"
+            type="text"
+            name="zipcodeSignup"
+          />
         </div>
 
         <!-- SECTION 3 -->
         <div class="formSection">
           <img src="{{url_for('static', filename='numbers/3.svg')}}" />
           <p>credit card information</p>
-        
-          <input class="formInput" placeholder="card number" type="text" name="cardNumberSignup">
+
+          <input
+            class="formInput"
+            placeholder="card number"
+            type="text"
+            name="cardNumberSignup"
+          />
           <div class="inputHalf">
-            <input class="formInput" placeholder="exp" type="password" name="citySignup">
-            <input class="formInput" placeholder="CVV" type="text" name="cvvSignup">
+            <input
+              class="formInput"
+              placeholder="exp"
+              type="password"
+              name="citySignup"
+            />
+            <input
+              class="formInput"
+              placeholder="CVV"
+              type="text"
+              name="cvvSignup"
+            />
           </div>
         </div>
 
@@ -65,18 +129,14 @@
         <div class="formSection">
           <img src="{{url_for('static', filename='numbers/4.svg')}}" />
           <p>sign up as driver (optional)</p>
-          
+
           <div class="radioFormContainer">
-            <input type="radio" name="driverSignup" value="yes">
+            <input type="radio" name="driverSignup" value="yes" />
             <p>Yes</p>
-            <input type="radio" name="driverSignup" value="no">
+            <input type="radio" name="driverSignup" value="no" />
             <p>No</p>
           </div>
         </div>
-
-
-
-
       </form>
       <div class="btnContainer">
         <button class="btnStyle1 btnWhiteBlue" id="homeForm">continue</button>

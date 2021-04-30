@@ -1,15 +1,25 @@
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
   <head>
-  	<title>Rebu: On-Demand Ridesharing</title>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Rebu: On-Demand Ridesharing</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
     <!-- bootstrap styling -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <link
+      rel="stylesheet"
+      href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css"
+    />
     <!-- custom css styling  -->
-    <link rel="stylesheet" type= "text/css" href= "{{ url_for('static',filename='styles/main.css') }}">
-    <link rel="preconnect" href="https://fonts.gstatic.com">
-    <link href="https://fonts.googleapis.com/css2?family=Questrial&display=swap" rel="stylesheet">
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="{{ url_for('static',filename='styles/main.css') }}"
+    />
+    <link rel="preconnect" href="https://fonts.gstatic.com" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Questrial&display=swap"
+      rel="stylesheet"
+    />
 
     <!-- bootstrap styling -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
@@ -17,21 +27,44 @@
   </head>
   <body>
     <div class="container-fluid user-bg">
-    	<h1>REBU</h1>
-      <form>
+      <h1>REBU</h1>
+      <form id="login-form" action={{ url_for("authorize_login") }} method="POST">
+        <input
+          class="homeFormInput"
+          placeholder="email"
+          type="text"
+          name="email"
+          id="email"
+        />
+        <input
+          class="homeFormInput"
+          placeholder="password"
+          type="password"
+          name="password"
+          id="password"
+        />
 
-        <input class="homeFormInput" placeholder="email" type="text" name="emailSignIn">
-        <input class="homeFormInput" placeholder="password" type="password" name="passwordSignIn">
-        
         <div class="homeFormInputRadio">
-          <input type="radio" name="loginInAsDriver" value="">
-          <label for="male">log in as driver</label>
+          <input type="checkbox" name="is-driver" id="is-driver" />
+          <label for="is-driver">log in as driver</label>
         </div>
-
       </form>
       <div class="btnContainer">
-        <button class="btnStyle1 btnWhiteBlue" id="homeForm">Log In</button>
-        <button class="btnStyle1 btnBlueWhite" id="homeForm">Create Account</button>
+        <button
+          class="btnStyle1 btnWhiteBlue"
+          id="homeForm"
+          type="submit"
+          form="login-form"
+        >
+          Log In
+        </button>
+        <button
+          class="btnStyle1 btnBlueWhite"
+          id="homeForm"
+          onclick="window.location.href='{{ url_for('signup') }}'"
+        >
+          Create Account
+        </button>
       </div>
     </div>
   </body>

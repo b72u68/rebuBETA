@@ -1,65 +1,80 @@
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
   <head>
-  	<title>Rebu: On-Demand Ridesharing</title>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Rebu: On-Demand Ridesharing</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
     <!-- bootstrap styling -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <link
+      rel="stylesheet"
+      href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css"
+    />
 
     <!-- custom css styling  -->
-    <link rel="stylesheet" type= "text/css" href= "{{ url_for('static',filename='styles/main.css') }}">
-    <link rel="preconnect" href="https://fonts.gstatic.com">
-    <link href="https://fonts.googleapis.com/css2?family=Questrial&display=swap" rel="stylesheet">
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="{{ url_for('static',filename='styles/main.css') }}"
+    />
+    <link rel="preconnect" href="https://fonts.gstatic.com" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Questrial&display=swap"
+      rel="stylesheet"
+    />
 
     <!-- bootstrap styling -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 
     <!-- menu javascript -->
-    <script type="text/javascript" src="{{url_for('static', filename='js/main.js') }}"></script>
+    <script
+      type="text/javascript"
+      src="{{url_for('static', filename='js/main.js') }}"
+    ></script>
   </head>
   <body>
     <div class="container-fluid driver-bg">
-      
       <!-- NAVAGATION BAR -->
       <nav id="myTopnav" class="homePageNav">
-      	<p class="navTitle">REBU</p>
+        <p class="navTitle">REBU</p>
         <a id="hamburgerMenu" href="javascript:void(0);" onclick="toggleMenu()">
-          <img src="{{url_for('static', filename='icons/hamburgerMenu.svg')}}" />
+          <img
+            src="{{url_for('static', filename='icons/hamburgerMenu.svg')}}"
+          />
         </a>
       </nav>
 
       <!-- HIDDEN MENU -->
-      <div id="hiddenMenu">
-        <a>sign out</a>
-        <a>edit account info</a>
-        <a>swith to customer</a>
+      <div id="hiddenMenu" style="display: none">
+        <a href="{{ url_for('signout') }}">sign out</a>
+        <a href="{{ url_for('edit_driver') }}">edit account info</a>
+        <a href="{{ url_for('swith_to_customer') }}">switch to customer</a>
       </div>
       <!-- STATUS CONTAINER -->
       <div class="statusContainer">
-        <div id="statusSubcontainerOn">
+        <div id="statusSubcontainerOn" style="display: block">
           <img src="{{url_for('static', filename='icons/onTarget.svg')}}" />
-          <a href="javascript:void(0);" onclick="toggleStatus()"><img src="{{url_for('static', filename='icons/toggleOff.svg')}}" /></a>
+          <a href="javascript:void(0);" onclick="toggleStatus()"
+            ><img src="{{url_for('static', filename='icons/toggleOff.svg')}}"
+          /></a>
         </div>
 
-        <div id="statusSubcontainerOff">
+        <div id="statusSubcontainerOff" style="display: none">
           <img src="{{url_for('static', filename='icons/offTarget.svg')}}" />
-          <a href="javascript:void(0);" onclick="toggleStatus()"><img src="{{url_for('static', filename='icons/toggleOn.svg')}}" /></a>
+          <a href="javascript:void(0);" onclick="toggleStatus()"
+            ><img src="{{url_for('static', filename='icons/toggleOn.svg')}}"
+          /></a>
         </div>
       </div>
       <!-- GOOGLE API SCREEN -->
 
       <!-- PLACE API CODE HERE -->
 
-
-
       <!-- REQUEST RIDE CONTAINER  -->
       <div class="rideRequestContainer">
-        <p class="requestRideTitle">Ride Requests (Nearest)</p>
+        <p class="requestRideTitle">Ride Requests</p>
 
         <div class="rideListContainer">
-
           <!-- RIDE ENTRY -->
           <div class="row rideRow">
             <div class="col-xs-4 rCol">
@@ -70,11 +85,15 @@
             </div>
             <div class="col-xs-2 rCol">
               <h4>2</h4>
-              <img src="{{url_for('static', filename='icons/passanger.svg')}}" />
+              <img
+                src="{{url_for('static', filename='icons/passanger.svg')}}"
+              />
             </div>
             <div class="col-xs-3 rCol">
               <a>
-                <img src="{{url_for('static', filename='icons/viewButton.svg')}}" />
+                <img
+                  src="{{url_for('static', filename='icons/viewButton.svg')}}"
+                />
               </a>
             </div>
           </div>
@@ -89,11 +108,15 @@
             </div>
             <div class="col-xs-2 rCol">
               <h4>2</h4>
-              <img src="{{url_for('static', filename='icons/passanger.svg')}}" />
+              <img
+                src="{{url_for('static', filename='icons/passanger.svg')}}"
+              />
             </div>
             <div class="col-xs-3 rCol">
               <a>
-                <img src="{{url_for('static', filename='icons/viewButton.svg')}}" />
+                <img
+                  src="{{url_for('static', filename='icons/viewButton.svg')}}"
+                />
               </a>
             </div>
           </div>
@@ -108,11 +131,15 @@
             </div>
             <div class="col-xs-2 rCol">
               <h4>4</h4>
-              <img src="{{url_for('static', filename='icons/passanger.svg')}}" />
+              <img
+                src="{{url_for('static', filename='icons/passanger.svg')}}"
+              />
             </div>
             <div class="col-xs-3 rCol">
               <a>
-                <img src="{{url_for('static', filename='icons/viewButton.svg')}}" />
+                <img
+                  src="{{url_for('static', filename='icons/viewButton.svg')}}"
+                />
               </a>
             </div>
           </div>
@@ -127,11 +154,15 @@
             </div>
             <div class="col-xs-2 rCol">
               <h4>1</h4>
-              <img src="{{url_for('static', filename='icons/passanger.svg')}}" />
+              <img
+                src="{{url_for('static', filename='icons/passanger.svg')}}"
+              />
             </div>
             <div class="col-xs-3 rCol">
               <a>
-                <img src="{{url_for('static', filename='icons/viewButton.svg')}}" />
+                <img
+                  src="{{url_for('static', filename='icons/viewButton.svg')}}"
+                />
               </a>
             </div>
           </div>
@@ -141,9 +172,7 @@
           </div>
         </div>
         <p class="endTitle">end of list</p>
-
       </div>
-
     </div>
   </body>
 </html>

@@ -1,16 +1,26 @@
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
   <head>
-  	<title>Rebu: On-Demand Ridesharing</title>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Rebu: On-Demand Ridesharing</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
     <!-- bootstrap styling -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <link
+      rel="stylesheet"
+      href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css"
+    />
 
     <!-- custom css styling  -->
-    <link rel="stylesheet" type= "text/css" href= "{{ url_for('static',filename='styles/main.css') }}">
-    <link rel="preconnect" href="https://fonts.gstatic.com">
-    <link href="https://fonts.googleapis.com/css2?family=Questrial&display=swap" rel="stylesheet">
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="{{ url_for('static',filename='styles/main.css') }}"
+    />
+    <link rel="preconnect" href="https://fonts.gstatic.com" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Questrial&display=swap"
+      rel="stylesheet"
+    />
 
     <!-- bootstrap styling -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
@@ -19,9 +29,9 @@
   <body>
     <div class="container-fluid user-bg">
       <nav>
-      	<a href="#">
-            <span class="glyphicon glyphicon-menu-left"></span>
-            <p>Home</p>
+        <a href="{{ url_for('customer_home') }}">
+          <span class="glyphicon glyphicon-menu-left"></span>
+          <p>Home</p>
         </a>
       </nav>
       <h3>edit account</h3>
@@ -30,51 +40,109 @@
         <div class="formSection">
           <img src="{{url_for('static', filename='numbers/1.svg')}}" />
           <p>basic information</p>
-        
+
           <h4 class="editLabel">email</h4>
-          <input class="formInput" placeholder="jondoe@gmail.com" type="text" name="emailSignup">
+          <input
+            class="formInput"
+            placeholder="jondoe@gmail.com"
+            type="text"
+            name="emailSignup"
+            value="{{ customer.email }}"
+          />
           <h4 class="editLabel">new password</h4>
-          <input class="formInput" placeholder="********" type="password" name="passwordSignup">
+          <input
+            class="formInput"
+            placeholder="********"
+            type="password"
+            name="passwordSignup"
+          />
           <h4 class="editLabel">first name</h4>
-          <input class="formInput" placeholder="John" type="text" name="firstNameSignup">
+          <input
+            class="formInput"
+            placeholder="John"
+            type="text"
+            name="firstNameSignup"
+            value="{{ customer.fname }}"
+          />
           <h4 class="editLabel">last name</h4>
-          <input class="formInput" placeholder="Doe" type="text" name="lastNameSignup">
+          <input
+            class="formInput"
+            placeholder="Doe"
+            type="text"
+            name="lastNameSignup"
+            value="{{ customer.lname }}"
+          />
           <h4 class="editLabel">birthday</h4>
-          <input class="formInput" type="date" name="birthdaySignup">
+          <input class="formInput" type="date" name="birthdaySignup" />
         </div>
 
         <!-- SECTION 2 -->
         <div class="formSection">
           <img src="{{url_for('static', filename='numbers/2.svg')}}" />
           <p>mailing address</p>
-          
+
           <h4 class="editLabel">street</h4>
-          <input class="formInput" placeholder="333 S. State St." type="text" name="streetSignup">
+          <input
+            class="formInput"
+            placeholder="333 S. State St."
+            type="text"
+            name="streetSignup"
+          />
           <h4 class="editLabel">city</h4>
-          <input class="formInput" placeholder="Chicago" type="password" name="citySignup">
+          <input
+            class="formInput"
+            placeholder="Chicago"
+            type="password"
+            name="citySignup"
+          />
           <h4 class="editLabel">state</h4>
-          <input class="formInput" placeholder="Illinois" type="text" name="stateSignup">
+          <input
+            class="formInput"
+            placeholder="Illinois"
+            type="text"
+            name="stateSignup"
+          />
           <h4 class="editLabel">zip code</h4>
-          <input class="formInput" placeholder="60606" type="text" name="zipcodeSignup">
+          <input
+            class="formInput"
+            placeholder="60606"
+            type="text"
+            name="zipcodeSignup"
+          />
         </div>
 
         <!-- SECTION 3 -->
         <div class="formSection">
           <img src="{{url_for('static', filename='numbers/3.svg')}}" />
           <p>credit card information</p>
-        
+
           <h4 class="editLabel">card number</h4>
-          <input class="formInput" placeholder="9032 3948 3940 2049" type="text" name="cardNumberSignup">
+          <input
+            class="formInput"
+            placeholder="9032 3948 3940 2049"
+            type="text"
+            name="cardNumberSignup"
+          />
           <div class="inputHalf">
-            <input class="formInput" placeholder="exp" type="password" name="citySignup">
-            <input class="formInput" placeholder="CVV" type="text" name="cvvSignup">
+            <input
+              class="formInput"
+              placeholder="MM/YY"
+              type="text"
+              name="citySignup"
+            />
+            <input
+              class="formInput"
+              placeholder="CVV"
+              type="text"
+              name="cvvSignup"
+            />
           </div>
         </div>
-
-
       </form>
       <div class="btnContainer">
-        <button class="btnStyle1 btnWhiteNavyBlue" id="homeForm">submit change</button>
+        <button class="btnStyle1 btnWhiteNavyBlue" id="homeForm">
+          submit change
+        </button>
       </div>
     </div>
   </body>
