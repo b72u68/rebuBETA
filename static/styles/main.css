@@ -176,7 +176,21 @@ Second color is text
 	background: rgb(63,45,139);
 	background: linear-gradient(180deg, rgba(63,45,139,1) 0%, rgba(118,36,92,1) 100%);
 }
-
+/*********************
+**** HIDDEN MENU  ****
+**********************/
+#hiddenMenu{
+	background-color: rgb(54,51,55);
+	margin: 0 -15px;
+	padding: 10px 15px;
+	display: none;
+}
+#hiddenMenu a{
+	display: block;
+	color: white;
+	font-size: 25px;
+	margin: 5px 0;
+}
 /***************************
 **** CACCOUNT HOMEPAGE  ****
 ****************************/
@@ -206,25 +220,62 @@ Second color is text
 	font-size: 28px;
 	color: rgb(104,165,181);
 }
-
-/*********************
-**** HIDDEN MENU  ****
-**********************/
-#hiddenMenu{
-	background-color: rgb(54,51,55);
-	margin: 0 -15px;
-	padding: 10px 15px;
+/***************************
+**** DACCOUNT HOMEPAGE  ****
+****************************/
+.statusContainer{
+	padding-bottom: 10px;
+	padding-top: 10px;
+}
+.statusContainer a{
+	float: right;
+	padding-top: 6px;
+}
+#statusSubcontainerOff{
 	display: none;
 }
-#hiddenMenu a{
-	display: block;
-	color: white;
-	font-size: 25px;
-	margin: 5px 0;
+.rideRequestContainer{
+	background-color: white;
+	margin:0 -15px;
+	padding: 15px 15px 30px;
 }
-
-
-
+.rideRequestContainer p{
+	color: #73235b;
+}
+.rideListContainer{
+	border-top: solid 1px #6e6f6e;
+	border-bottom: solid 1px #6e6f6e;
+	min-height: 250px;
+	color: #6e6f6e;
+	padding-bottom: 15px;
+}
+.row.rideRow{
+	margin: 0;
+}
+.rideRow{
+	padding-top: 15px;
+}
+.rCol{
+	padding: 0;
+}
+.rCol h4{
+	display: inline;
+}
+#offlineRidesContainer{
+	display: none;
+	text-align: center; 
+}
+#offlineRidesContainer p{
+	font-size: 23px;
+	color: #6e6f6e;
+	margin-top: 100px;
+}
+.endTitle{
+	font-size: 15px;
+	text-align: center;
+	color: #6e6f6e;
+	padding-top: 10px;
+}
 
 
 
