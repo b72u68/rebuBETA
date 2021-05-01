@@ -105,6 +105,21 @@ Second color is text
 	color: rgb(66,45,139);
 	background-color: white;
 }
+.btnGreyWhite{
+	color: white;
+	background: #959695;
+}
+.btnGradientPurple{
+	color: white;
+	background: rgb(63,43,136);
+	background: linear-gradient(90deg, rgba(63,43,136,1) 0%, rgba(114,35,92,1) 100%);
+}
+/****************************
+**** GENERAL CONTAINERS *****
+*****************************/
+.rideContainer{
+
+}
 /*****************
 **** HOMEPAGE ****
 ******************/
@@ -276,8 +291,51 @@ Second color is text
 	color: #6e6f6e;
 	padding-top: 10px;
 }
-
-
+/****************************
+**** RIDE INFO HOMEPAGE  ****
+*****************************/
+.rideInfoContainer{
+	background-color: white;
+	margin:0 -15px;
+	padding: 15px 15px 30px;
+	min-height: 250px;
+}
+.rideInfoContainerTitle{
+	font-size: 20px;
+	color: #73235b;
+}
+.rideInfoName{
+	font-size: 25px;
+	display: inline;
+	margin-right: 5px;
+	padding-top: 3px;
+}
+.rideInfoRating{
+	vertical-align: top;
+	padding-top: 8px;
+}
+.rideInfoDistance{
+	font-size: 17px;
+}
+.rideInfoSubtitle{
+	font-size: 23px;
+	color: #73235b;
+	margin-top: 24px;
+	margin-bottom: 0;
+}
+.rideInfo{
+	font-size: 25px;
+	margin-bottom: 0;
+}
+.rideDetailsContainer{
+	margin-top: 20px;
+	margin-bottom: 10px;
+}
+.rideDetailsContainer p{
+	font-size: 15px;
+	text-align: center;
+	color: #73235b;
+}
 
 
 
