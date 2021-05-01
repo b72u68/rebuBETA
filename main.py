@@ -1,6 +1,5 @@
 import random
 import requests
-from bs4 import BeautifulSoup
 from flask import Flask, render_template, request, url_for, redirect
 
 app = Flask(__name__)
@@ -50,6 +49,7 @@ class Ride:
                  driver,
                  pickup,
                  destination,
+                 distance,
                  number_of_passengers,
                  status):
 
@@ -58,6 +58,7 @@ class Ride:
         self.driver = driver
         self.pickup = pickup
         self.destination = destination
+        self.distance = distance
         self.number_of_passengers = number_of_passengers
         self.status = status
 
@@ -136,7 +137,7 @@ def edit_driver():
     return render_template("editDriverAccount.html", driver=USER)
 
 
-@app.route("/api/authorize_login", methods=["POST"])
+@app.route("/authorize_login", methods=["POST"])
 def authorize_login():
     global USER, IS_DRIVER
 
@@ -165,29 +166,31 @@ def authorize_login():
         return redirect(url_for("customer_home"))
 
 
-@app.route("/api/switch_to_customer")
+@app.route("/switch_to_customer")
 def swith_to_customer():
     global USER, IS_DRIVER
 
-    IS_DRIVER = False
+    if USER:
+        IS_DRIVER = False
 
-    for customer in customers:
-        if customer.email == USER.email:
-            USER = customer
-            break
+        for customer in customers:
+            if customer.email == USER.email:
+                USER = customer
+                break
 
     return redirect(url_for("home"))
 
 
-@app.route("/api/switch_to_driver")
+@app.route("/switch_to_driver")
 def swith_to_driver():
     global USER, IS_DRIVER
 
-    for driver in drivers:
-        if driver.email == USER.email:
-            USER = driver
-            IS_DRIVER = True
-            break
+    if USER:
+        for driver in drivers:
+            if driver.email == USER.email:
+                USER = driver
+                IS_DRIVER = True
+                break
 
     return redirect(url_for("home"))
 
@@ -195,24 +198,62 @@ def swith_to_driver():
 @app.route("/api/search_location")
 def search_location():
     result = ""
-    base_url = "https://maps.googleapis.com/maps/api/place/textsearch/xml?query="
+    base_url = "https://maps.googleapis.com/maps/api/place/textsearch/json?query="
     api_key = "&key=AIzaSyBMoGOvmm_iE2suY-AnGKx8AmVqO6vz7gg"
     location = request.args.get("loc")
 
     if not location:
+        return ""
+
+    location = location.replace(", ", "+").replace(" ", "+")
+    response = requests.get(base_url + location + api_key)
+
+    if not response:
         return "No location found"
 
-    response = requests.get(base_url + location.replace(" ", "+") + api_key)
+    if response.status_code == 200:
+        data = response.json()
+        name = data['results'][0]['name']
+        address = data['results'][0]['formatted_address']
+        result = {'name': name, 'address': address}
+        return result
 
-    if response:
-        if response.status_code == 200:
-            html_content = response.text
-            soup = BeautifulSoup(html_content, "lxml")
-            result = soup.formatted_address.text
-    else:
-        return "No location found"
+    return ""
 
-    return result
+
+def calculate_distance(start, end):
+    start = start.replace(", ", "+").replace(" ", "+")
+    end = end.replace(", ", "+").replace(" ", "+")
+    base_url = "https://maps.googleapis.com/maps/api/directions/json?origin="
+    api_key = "&key=AIzaSyBMoGOvmm_iE2suY-AnGKx8AmVqO6vz7gg"
+
+    if not start or not end:
+        return None
+
+    response = requests.get(base_url + start + "&destination=" + end + api_key)
+
+    if not response:
+        return None
+
+    if response.status_code == 200:
+        data = response.json()
+        distance = data['routes'][0]['legs'][0]['distance']['text']
+        return distance
+
+    return None
+
+
+@app.route("/api/get_distance")
+def get_distance():
+    start = request.args.get("start")
+    end = request.args.get("end")
+
+    distance = calculate_distance(start, end)
+
+    if not distance:
+        return "Cannot calculate the distance"
+
+    return distance
 
 
 if __name__ == "__main__":

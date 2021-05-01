@@ -44,8 +44,9 @@ function getPickup(input) {
     "/api/search_location?loc=" + input.replace(/\s+/g, "+"),
     function (data) {
       document.getElementById("destination_result").innerHTML = "";
-      document.getElementById("pickup_result").innerHTML = data;
-      console.log(data);
+      document.getElementById("pickup_result").innerHTML =
+        data.name + "<br>" + data.address;
+      document.getElementById("pickup").data = data;
     }
   );
 }
@@ -55,18 +56,21 @@ function getDestination(input) {
     "/api/search_location?loc=" + input.replace(/\s+/g, "+"),
     function (data) {
       document.getElementById("pickup_result").innerHTML = "";
-      document.getElementById("destination_result").innerHTML = data;
-      console.log(data);
+      document.getElementById("destination_result").innerHTML =
+        data.name + "<br>" + data.address;
+      document.getElementById("destination").data = data;
     }
   );
 }
 
 function setPickupLocation(input) {
-  document.getElementById("pickup").value = input;
+  let data = document.getElementById("pickup").data;
   document.getElementById("pickup_result").innerHTML = "";
+  document.getElementById("pickup").value = data.address;
 }
 
 function setDestinationLocation(input) {
-  document.getElementById("destination").value = input;
+  let data = document.getElementById("destination").data;
   document.getElementById("destination_result").innerHTML = "";
+  document.getElementById("destination").value = data.address;
 }
