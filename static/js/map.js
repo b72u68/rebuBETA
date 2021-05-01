@@ -9,3 +9,10 @@ function initMap() {
     mapTypeControl: false
   });
 }
+
+function init() {
+	var pickup = document.getElementById('ridePickup');
+	var destination = document.getElementById('rideDestination');
+	var autocomplete1 = new google.maps.places.Autocomplete(pickup);
+	var autocomplete2 = new google.maps.places.Autocomplete(destination);
+}

@@ -20,6 +20,7 @@
     <script type="text/javascript" src="{{url_for('static', filename='js/main.js') }}"></script>
     <!-- map javascript -->
     <script type="text/javascript" src="{{url_for('static', filename='js/map.js') }}"></script>
+    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false&libraries=places"></script>
   </head>
   <body>
     <div class="container-fluid user-bg">
@@ -46,8 +47,8 @@
       <div class="requestRideContainer">
         <p class="requestRideTitle">Request Ride</p>
 
-        <input class="formInput" placeholder="pickup location" type="text" name="">
-        <input class="formInput" placeholder="destination" type="text" name="">
+        <input id="ridePickup" class="formInput" placeholder="pickup location" type="text" name="">
+        <input id="rideDestination" class="formInput" placeholder="destination" type="text" name="">
         <input class="formInput" placeholder="number of passangers (max 6)" type="text" name="">
 
         <div class="radioRequestRideFormContainer">
@@ -69,8 +70,9 @@
 
     <!-- Async script executes immediately and must be after any DOM elements used in callback. -->
     <script
-      src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBMoGOvmm_iE2suY-AnGKx8AmVqO6vz7gg&callback=initMap&libraries=&v=weekly"
+      src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBMoGOvmm_iE2suY-AnGKx8AmVqO6vz7gg&callback=initMap&libraries=places&v=weekly"
       async
     ></script>
+    <script type="text/javascript" src="{{url_for('static', filename='js/autocomplete.js') }}"></script>
   </body>
 </html>
