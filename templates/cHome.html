@@ -1,78 +1,64 @@
-<!DOCTYPE html>
-<html lang="en" dir="ltr">
-  <head>
-  	<title>Rebu: On-Demand Ridesharing</title>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <!-- bootstrap styling -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+{% extends 'base.html' %}
 
-    <!-- custom css styling  -->
-    <link rel="stylesheet" type= "text/css" href= "{{ url_for('static',filename='styles/main.css') }}">
-    <link rel="preconnect" href="https://fonts.gstatic.com">
-    <link href="https://fonts.googleapis.com/css2?family=Questrial&display=swap" rel="stylesheet">
+{% block head %}
+  <!-- menu js -->
+  <script type="text/javascript" src="{{url_for('static', filename='js/main.js') }}"></script>
+  <!-- map js -->
+  <script type="text/javascript" src="{{url_for('static', filename='js/map.js') }}"></script>
+  <!-- autopopulate js -->
+  <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false&libraries=places"></script>
+{% endblock %}
 
-    <!-- bootstrap styling -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+{% block content %}
+  <div class="container-fluid user-bg">      
+    <!-- NAVAGATION BAR -->
+    <nav id="myTopnav" class="homePageNav">
+      <p class="navTitle">REBU</p>
+      <a id="hamburgerMenu" href="javascript:void(0);" onclick="toggleMenu()">
+        <img src="{{url_for('static', filename='icons/hamburgerMenu.svg')}}" />
+      </a>
+    </nav>
 
-    <!-- menu javascript -->
-    <script type="text/javascript" src="{{url_for('static', filename='js/main.js') }}"></script>
-    <!-- map javascript -->
-    <script type="text/javascript" src="{{url_for('static', filename='js/map.js') }}"></script>
-    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false&libraries=places"></script>
-  </head>
-  <body>
-    <div class="container-fluid user-bg">
-      
-      <!-- NAVAGATION BAR -->
-      <nav id="myTopnav" class="homePageNav">
-      	<p class="navTitle">REBU</p>
-        <a id="hamburgerMenu" href="javascript:void(0);" onclick="toggleMenu()">
-          <img src="{{url_for('static', filename='icons/hamburgerMenu.svg')}}" />
-        </a>
-      </nav>
+    <!-- HIDDEN MENU -->
+    <div id="hiddenMenu">
+      <a>sign out</a>
+      <a>edit account info</a>
+      <a>switch to driver</a>
+    </div>
+    <!-- GOOGLE API SCREEN -->
+    <div id="map"></div>
+    
 
-      <!-- HIDDEN MENU -->
-      <div id="hiddenMenu">
-        <a>sign out</a>
-        <a>edit account info</a>
-        <a>switch to driver</a>
+    <!-- REQUEST RIDE CONTAINER  -->
+    <div class="requestRideContainer">
+      <p class="requestRideTitle">Request Ride</p>
+
+      <input id="ridePickup" class="formInput" placeholder="pickup location" type="text" name="">
+      <input id="rideDestination" class="formInput" placeholder="destination" type="text" name="">
+      <input class="formInput" placeholder="number of passangers (max 6)" type="text" name="">
+
+      <div class="radioRequestRideFormContainer">
+        <p>Carpool?</p>
+        <input type="radio" name="driverSignup" value="yes">
+        <p>Yes</p>
+        <input type="radio" name="driverSignup" value="no">
+        <p>No</p>
       </div>
-      <!-- GOOGLE API SCREEN -->
-      <div id="map"></div>
-      
 
-      <!-- REQUEST RIDE CONTAINER  -->
-      <div class="requestRideContainer">
-        <p class="requestRideTitle">Request Ride</p>
-
-        <input id="ridePickup" class="formInput" placeholder="pickup location" type="text" name="">
-        <input id="rideDestination" class="formInput" placeholder="destination" type="text" name="">
-        <input class="formInput" placeholder="number of passangers (max 6)" type="text" name="">
-
-        <div class="radioRequestRideFormContainer">
-          <p>Carpool?</p>
-          <input type="radio" name="driverSignup" value="yes">
-          <p>Yes</p>
-          <input type="radio" name="driverSignup" value="no">
-          <p>No</p>
-        </div>
-
-        <div class="btnContainer">
-          <button class="btnStyle1 btnBlueWhite" id="homeForm">request</button>
-        </div>
-
+      <div class="btnContainer">
+        <button class="btnStyle1 btnBlueWhite" id="homeForm">request</button>
       </div>
 
     </div>
 
+  </div>
 
-    <!-- Async script executes immediately and must be after any DOM elements used in callback. -->
-    <script
-      src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBMoGOvmm_iE2suY-AnGKx8AmVqO6vz7gg&callback=initMap&libraries=places&v=weekly"
-      async
-    ></script>
-    <script type="text/javascript" src="{{url_for('static', filename='js/autocomplete.js') }}"></script>
-  </body>
-</html>
+
+  <!-- Async script executes immediately and must be after any DOM elements used in callback. -->
+  <script
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBMoGOvmm_iE2suY-AnGKx8AmVqO6vz7gg&callback=initMap&libraries=places&v=weekly"
+    async
+  ></script>
+  <script type="text/javascript" src="{{url_for('static', filename='js/autocomplete.js') }}"></script>
+{% endblock %}
+
