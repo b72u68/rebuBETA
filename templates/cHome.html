@@ -18,6 +18,8 @@
 
     <!-- menu javascript -->
     <script type="text/javascript" src="{{url_for('static', filename='js/main.js') }}"></script>
+    <!-- map javascript -->
+    <script type="text/javascript" src="{{url_for('static', filename='js/map.js') }}"></script>
   </head>
   <body>
     <div class="container-fluid user-bg">
@@ -37,12 +39,8 @@
         <a>switch to driver</a>
       </div>
       <!-- GOOGLE API SCREEN -->
-
-      <!-- PLACE API CODE HERE -->
-
-
-
-
+      <div id="map"></div>
+      
 
       <!-- REQUEST RIDE CONTAINER  -->
       <div class="requestRideContainer">
@@ -67,5 +65,12 @@
       </div>
 
     </div>
+
+
+    <!-- Async script executes immediately and must be after any DOM elements used in callback. -->
+    <script
+      src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBMoGOvmm_iE2suY-AnGKx8AmVqO6vz7gg&callback=initMap&libraries=&v=weekly"
+      async
+    ></script>
   </body>
 </html>
