@@ -1,53 +1,24 @@
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
   <head>
-    <meta charset="utf-8" />
-    <title>Rebu</title>
-    <style>
-      body,
-      html {
-        text-align: center;
-        margin: 0;
-        font-family: sans-serif;
-      }
+    <title>Rebu: On-Demand Ridesharing</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- bootstrap styling -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <!-- custom css styling  -->
+    <link rel="stylesheet" type= "text/css" href= "{{ url_for('static',filename='styles/main.css') }}">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Questrial&display=swap" rel="stylesheet">
 
-      .content {
-        margin: 0 auto;
-        width: 400px;
-      }
+    <!-- bootstrap styling -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 
-      table,
-      td,
-      th {
-        border: 1px solid #aaa;
-      }
 
-      table {
-        border-collapse: collapse;
-        width: 100%;
-      }
 
-      th {
-        height: 30px;
-      }
-
-      td {
-        text-align: center;
-        padding: 5px;
-      }
-
-      .form {
-        margin-top: 20px;
-      }
-
-      #content {
-        width: 70%;
-      }
-    </style>
   </head>
-  {% block head %}{% endblock %}
   <body>
-    <h1>Rebu</h1>
-    {% block body %}{% endblock %}
+    {% block content %}{% endblock %}
   </body>
 </html>
