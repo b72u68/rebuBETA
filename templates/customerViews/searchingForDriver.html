@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <div class="container-fluid user-bg">      
+    <!-- NAVAGATION BAR -->
+    <nav id="myTopnav" class="homePageNav">
+      <p class="navTitle">REBU</p>
+      <a id="hamburgerMenu" href="javascript:void(0);" onclick="toggleMenu()">
+        <img src="{{url_for('static', filename='icons/hamburgerMenu.svg')}}" />
+      </a>
+    </nav>
+
+    <!-- HIDDEN MENU -->
+    <div id="hiddenMenu">
+      <a>sign out</a>
+      <a>edit account info</a>
+      <a>switch to driver</a>
+    </div>
+    
+    <h2 class="srchMsg">Searching For Driver...</h2>
+    
+
+    <!-- REFRESH BUTTON  -->
+		<div class="btnContainer">
+			<button class="btnStyle1 btnWhiteBlue" id="homeForm">refresh</button>
+		</div>
+
+    
+
+  </div>
+{% endblock %}

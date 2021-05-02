@@ -350,6 +350,12 @@ Second color is text
 	text-align: center;
 	color: #73235b;
 }
-
-
+/*************************
+**** SEARCHING PAGE   ****
+**************************/
+.srchMsg{
+	text-align: center;
+	margin: 150px 0 0;
+	color: white;
+}
 
