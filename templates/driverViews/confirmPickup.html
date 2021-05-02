@@ -1,0 +1,62 @@
+{% extends 'base.html' %}
+
+{% block head %}
+	<!-- menu javascript -->
+	<script type="text/javascript" src="{{url_for('static', filename='js/main.js') }}"></script>
+  <!-- map javascript -->
+  <script type="text/javascript" src="{{url_for('static', filename='js/map.js') }}"></script>
+{% endblock %}
+
+{% block content %}
+	<div class="container-fluid driver-bg">
+      
+    <!-- NAVAGATION BAR -->
+    <nav id="myTopnav" class="homePageNav">
+      <p class="navTitle">REBU</p>
+      <a id="hamburgerMenu" href="javascript:void(0);" onclick="toggleMenu()">
+        <img src="{{url_for('static', filename='icons/hamburgerMenu.svg')}}" />
+      </a>
+    </nav>
+
+    <!-- HIDDEN MENU -->
+    <div id="hiddenMenu">
+      <a>sign out</a>
+      <a>edit account info</a>
+      <a>swith to customer</a>
+    </div>
+    <!-- STATUS MESSAGE -->
+    <h2 class="statusMsg">Picking up John ...</h2>
+    <!-- GOOGLE API SCREEN -->
+    <div id="map"></div>
+
+    <!-- RIDE INFO CONTAINER  -->
+    <div class="rideInfoContainer">
+      <p class="rideInfoContainerTitle">Ride Information</p>
+
+      <!-- RIDE INFO -->
+      <p class="rideInfoName">John Doe</p>
+      <img class="rideInfoRating" src="{{url_for('static', filename='icons/rate4.svg')}}" />
+      <p class="rideInfoDistance">0.3 miles away</p>
+      
+      <p class="rideInfoSubtitle">Pickup Location</p>
+      <p class="rideInfo">1234 S 49th Ave</p>
+      <p class="rideInfo"> Chicago, 60608</p>
+
+      <div class=".btnContainer">
+      	<h3 class="question">Have you picked up John?</h3>
+
+        <button class="btnStyle1 btnGradientPurple" id="homeForm">yes</button>
+        <button class="btnStyle1 btnGreyWhite" id="homeForm">cancel</button>
+      </div>
+        
+      </div>
+
+    </div>
+
+  </div>
+  <!-- Async script executes immediately and must be after any DOM elements used in callback. -->
+  <script
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBMoGOvmm_iE2suY-AnGKx8AmVqO6vz7gg&callback=initMap&libraries=&v=weekly"
+    async
+  ></script>
+{% endblock%}
