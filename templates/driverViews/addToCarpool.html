@@ -1,14 +1,14 @@
 {% extends 'base.html' %}
 
 {% block head %}
-	<!-- menu javascript -->
-	<script type="text/javascript" src="{{url_for('static', filename='js/main.js') }}"></script>
+  <!-- menu javascript -->
+  <script type="text/javascript" src="{{url_for('static', filename='js/main.js') }}"></script>
   <!-- map javascript -->
   <script type="text/javascript" src="{{url_for('static', filename='js/map.js') }}"></script>
 {% endblock %}
 
 {% block content %}
-	<div class="container-fluid driver-bg">
+  <div class="container-fluid driver-bg">
       
     <!-- NAVAGATION BAR -->
     <nav id="myTopnav" class="homePageNav">
@@ -25,7 +25,7 @@
       <a>swith to customer</a>
     </div>
     <!-- STATUS MESSAGE -->
-    <h2 class="statusMsg">Dropping off John ...</h2>
+    <h2 class="statusMsg">Add to carpool ...</h2>
     <!-- GOOGLE API SCREEN -->
     <div id="map"></div>
 
@@ -38,16 +38,30 @@
       <img class="rideInfoRating" src="{{url_for('static', filename='icons/rate4.svg')}}" />
       <p class="rideInfoDistance">0.3 miles away</p>
       
-      <p class="rideInfoSubtitle">Destination</p>
+      <p class="rideInfoSubtitle">Pickup Location</p>
       <p class="rideInfo">1234 S 49th Ave</p>
       <p class="rideInfo"> Chicago, 60608</p>
+      
+
+      <p class="rideInfoSubtitle">Destination</p>
+      <p class="rideInfo">124 S 59th Ave</p>
+      <p class="rideInfo"> Chicago, 60608</p>
+        
+      <div class="row rideDetailsContainer">
+        <div class="col-xs-4">
+          <p>1 Passanger</p>
+        </div>
+        <div class="col-xs-4">
+          <p>No Carpool</p>
+        </div>
+        <div class="col-xs-4">
+          <p>2.3 miles</p>
+        </div>
+      </div>
 
       <div class=".btnContainer">
-      	<h3 class="question">Have you dropped off John?</h3>
-
-        <button class="btnStyle1 btnGradientPurple" id="homeForm">yes</button>
-        <button class="btnStyle1 btnGreyWhite" id="homeForm">cancel ride</button>
-        {% block button %} {% endblock %}
+        <button class="btnStyle1 btnGradientPurple" id="homeForm">add to carpool</button>
+        <button class="btnStyle1 btnGreyWhite" id="homeForm">return</button>
       </div>
         
       </div>
@@ -60,4 +74,6 @@
     src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBMoGOvmm_iE2suY-AnGKx8AmVqO6vz7gg&callback=initMap&libraries=&v=weekly"
     async
   ></script>
-{% endblock%}
+
+{% endblock %}
+
