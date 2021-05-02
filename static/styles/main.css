@@ -1,0 +1,384 @@
+@import url('https://fonts.googleapis.com/css2?family=Questrial&display=swap');
+
+/*****************
+**** GENERAL *****
+******************/
+::placeholder{
+	color: white;
+	opacity: .7;
+}
+body h1, h2, h3, h4, p, input, button, ::placeholder{
+	font-family: 'Questrial', sans-serif;
+}
+body h1{
+	color: white;
+	font-size: 70px;
+	text-align: center;
+	margin-top: 110px;
+	margin-bottom: 0px;
+}
+h3{
+	color: white;
+	text-align: center;
+	margin-top: 60px;
+	margin-bottom: 0px;
+}
+input{
+	border: none;
+	border-bottom: 1px solid rgba(255,255,255,.7);
+	background-color: transparent;
+}
+input:focus{
+	outline: none;
+}
+label {
+	color: rgba(255,255,255,.8);
+	font-size: 20px;
+	font-weight: normal;
+	display: inline;
+	padding-left: 4px;
+}
+nav{
+	color: white;
+	padding-top: 30px;
+	font-size: 20px;
+}
+nav p{
+	display: inline;
+	padding-bottom: 2px;
+}
+nav a{
+	color: white;
+}
+.navTitle{
+	font-size: 30px;
+}
+.homePageNav{
+	margin-top: 20px;
+	margin-bottom: 20px;
+	padding-top: 0px;
+}
+#hamburgerMenu{
+	float: right;
+	padding-top: 3px;
+}
+.statusMsg{
+	color: rgba(63,45,139);
+	margin: 0 -15px;
+	padding: 20px 15px 10px;
+	background-color: white;
+	font-size: 25px;
+}
+.question{
+	color: black;
+}
+/*****************
+**** BUTTONS *****
+******************/
+button{
+	display: block;
+	border: none;
+}
+
+.btnContainer{
+	padding-top: 60px;
+	padding-bottom: 60px;
+}
+.btnStyle1{
+	height: 40px;
+	width: 250px;
+	font-size: 20px;
+	margin: 20px auto 0;
+	border-radius: 16px;
+}
+/*
+First color is bg. 
+Second color is text
+*/
+.btnWhiteBlue{
+	color: rgb(39,122,212);
+	background-color: white;
+}
+.btnBlueWhite{
+	color: white;
+	background-color: rgb(48,158,185);
+}
+.btnWhitePink{
+	color: rgb(118,36,92);
+	background-color: white;
+}
+.btnWhiteNavyBlue{
+	color: rgb(6,58,192);
+	background-color: white;
+}
+.btnWhitePurple{
+	color: rgb(66,45,139);
+	background-color: white;
+}
+.btnGreyWhite{
+	color: white;
+	background: #959695;
+}
+.btnGradientPurple{
+	color: white;
+	background: rgb(63,43,136);
+	background: linear-gradient(90deg, rgba(63,43,136,1) 0%, rgba(114,35,92,1) 100%);
+}
+.btnRtn{
+	margin-top: 60px;
+	margin-bottom: 30px;
+}
+/**************************
+**** GOOGLE MAPS CSS  *****
+***************************/
+#map{
+	height: 400px;
+	margin: 0 -15px;
+}
+
+/*****************
+**** HOMEPAGE ****
+******************/
+.user-bg {
+	min-height: 100vh;
+	background: rgb(62,214,179);
+	background: linear-gradient(180deg, rgba(62,214,179,1) 0%, rgba(12,4,203,1) 100%);
+}
+
+.homeFormInput{
+	margin: auto;
+	display: block;
+	min-width: 280px;
+	margin-top: 45px;
+	font-size: 27px;
+}
+.homeFormInput::placeholder{
+	text-align: center;
+}
+.homeFormInputRadio{
+	text-align: center;
+	margin-top: 15px;
+	width: auto;
+}
+
+/*****************
+***** FORMS ******
+******************/
+.formSection{
+	width: 290px;
+	margin: auto;
+	margin-top: 60px;
+}
+.formSection p{
+	display: inline;
+	color: white;
+	font-size: 19px;
+	padding-left: 15px;
+}
+.formSection .editLabel{
+	color: white;
+	margin-bottom: -10px;
+	margin-top: 30px;
+}
+.formInput{
+	display: block;
+	margin-top: 10px;
+	width: 100%;
+	font-size: 22px;
+	color: rgba(255,255,255,0.7);
+}
+.formInput2{
+	display: block;
+	margin-top: 10px;
+	width: 100%;
+	font-size: 22px;
+	color: black;
+	border-bottom: 1px solid rgba(0,0,0,.6);
+
+}
+.formInput2::placeholder{
+	color: rgba(0,0,0,0.6);
+}
+.inputHalf input{
+	display: inline;
+	width: 30%;
+	margin-right: 10px;
+}
+.radioFormContainer p{
+	margin-right: 10px;
+}
+.radioFormContainer input:first-child{
+	margin-left: 20%;
+}
+
+/**********************
+**** DRIVER SIGNUP ****
+***********************/
+.driver-bg{
+	min-height: 100vh;
+	background: rgb(63,45,139);
+	background: linear-gradient(180deg, rgba(63,45,139,1) 0%, rgba(118,36,92,1) 100%);
+}
+/*********************
+**** HIDDEN MENU  ****
+**********************/
+#hiddenMenu{
+	background-color: rgb(54,51,55);
+	margin: 0 -15px;
+	padding: 10px 15px;
+	display: none;
+}
+#hiddenMenu a{
+	display: block;
+	color: white;
+	font-size: 25px;
+	margin: 5px 0;
+}
+/***************************
+**** CACCOUNT HOMEPAGE  ****
+****************************/
+.requestRideContainer{
+	background-color: white;
+	margin:0 -15px;
+	padding-left: 15px;
+	padding-top: 15px;
+}
+.requestRideContainer input::placeholder{
+	color: rgb(178,179,178);
+}
+.requestRideContainer input{
+	font-size: 23px;
+	border-bottom-color: rgb(178,179,178);
+	margin-bottom: 21px;
+	color: black;
+}
+.requestRideContainer .btnContainer{
+	margin-left: -15px;
+}
+.radioRequestRideFormContainer p, .radioRequestRideFormContainer input{
+	display: inline;
+	font-size: 23px;
+}
+.requestRideTitle{
+	font-size: 28px;
+	color: rgb(104,165,181);
+}
+/***************************
+**** DACCOUNT HOMEPAGE  ****
+****************************/
+.statusContainer{
+	padding-bottom: 10px;
+	padding-top: 10px;
+}
+.statusContainer a{
+	float: right;
+	padding-top: 6px;
+}
+#statusSubcontainerOff{
+	display: none;
+}
+.rideRequestContainer{
+	background-color: white;
+	margin:0 -15px;
+	padding: 15px 15px 30px;
+}
+.rideRequestContainer p{
+	color: #73235b;
+}
+.rideListContainer{
+	min-height: 250px;
+	color: #6e6f6e;
+	padding-bottom: 15px;
+}
+.row.rideRow{
+	margin: 0;
+}
+.rideRow{
+	padding-top: 15px;
+}
+.rCol{
+	padding: 0;
+}
+.rCol h4{
+	display: inline;
+}
+#offlineRidesContainer{
+	display: none;
+	text-align: center; 
+}
+#offlineRidesContainer p{
+	font-size: 23px;
+	color: #6e6f6e;
+	margin-top: 100px;
+}
+.endTitle{
+	font-size: 15px;
+	text-align: center;
+	color: #6e6f6e;
+	padding-top: 10px;
+}
+/****************************
+**** RIDE INFO HOMEPAGE  ****
+*****************************/
+.rideInfoContainer{
+	background-color: white;
+	margin:0 -15px;
+	padding: 15px 15px 30px;
+	min-height: 250px;
+}
+.rideInfoContainerTitle{
+	font-size: 20px;
+	color: #73235b;
+}
+.rideInfoName{
+	font-size: 25px;
+	display: inline;
+	margin-right: 5px;
+	padding-top: 3px;
+}
+.rideInfoRating{
+	vertical-align: top;
+	padding-top: 8px;
+}
+.rideInfoDistance{
+	font-size: 17px;
+}
+.rideInfoSubtitle{
+	font-size: 23px;
+	color: #73235b;
+	margin-top: 24px;
+	margin-bottom: 0;
+}
+.rideInfo{
+	font-size: 25px;
+	margin-bottom: 0;
+}
+.rideDetailsContainer{
+	margin-top: 20px;
+	margin-bottom: 10px;
+}
+.rideDetailsContainer p{
+	font-size: 15px;
+	text-align: center;
+	color: #73235b;
+}
+/*************************
+**** SEARCHING PAGE   ****
+**************************/
+.srchMsg{
+	text-align: center;
+	margin: 150px 0 0;
+	color: white;
+}
+/**********************************
+**** WAITING FOR PICKUP PAGE   ****
+***********************************/
+.blueText .statusMsg,
+.blueText .rideInfoContainerTitle,
+.blueText .rideInfoSubtitle{
+	color: #309EB9;
+}
+/***********************
+**** REVIEW PAGES   ****
+************************/
+

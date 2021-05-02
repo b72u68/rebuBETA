@@ -1,27 +1,22 @@
-<!DOCTYPE html>
-<html lang="en" dir="ltr">
-  <head>
-  	<title>Rebu: On-Demand Ridesharing</title>
-    <meta charset="utf-8">
-    <!-- bootstrap start -->
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
-    <!-- bootstrap end  -->
-  </head>
-  <body>
-    <div class="container-fluid">
-    	<div class="col-sm-6">
-    		<h5>Rebu</h5>
-    		<h1>On-Demand Ridesharing</h1>
-    		<p>Hail a driver as easy as 1, 2, 3!</p>
-    	</div>
-    	<div class="col-sm-6">
-    		<h1>Welcome to Rebu</h1>
-    		<p>Login below. New users can enter a new username & will be redirected to the sign-up page.</p>
+{% extends 'base.html' %}
 
-    	</div>
+{% block content %}
+  <div class="container-fluid user-bg">
+    <h1>REBU</h1>
+    <form>
+
+      <input class="homeFormInput" placeholder="email" type="text" name="emailSignIn">
+      <input class="homeFormInput" placeholder="password" type="password" name="passwordSignIn">
+      
+      <div class="homeFormInputRadio">
+        <input type="radio" name="loginInAsDriver" value="">
+        <label for="male">log in as driver</label>
+      </div>
+
+    </form>
+    <div class="btnContainer">
+      <button class="btnStyle1 btnWhiteBlue" id="homeForm">Log In</button>
+      <button class="btnStyle1 btnBlueWhite" id="homeForm">Create Account</button>
     </div>
-  </body>
-</html>
+  </div>
+{% endblock %}
