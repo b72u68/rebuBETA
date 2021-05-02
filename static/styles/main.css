@@ -270,8 +270,6 @@ Second color is text
 	color: #73235b;
 }
 .rideListContainer{
-	border-top: solid 1px #6e6f6e;
-	border-bottom: solid 1px #6e6f6e;
 	min-height: 250px;
 	color: #6e6f6e;
 	padding-bottom: 15px;
