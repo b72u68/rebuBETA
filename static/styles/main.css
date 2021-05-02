@@ -187,6 +187,18 @@ Second color is text
 	font-size: 22px;
 	color: rgba(255,255,255,0.7);
 }
+.formInput2{
+	display: block;
+	margin-top: 10px;
+	width: 100%;
+	font-size: 22px;
+	color: black;
+	border-bottom: 1px solid rgba(0,0,0,.6);
+
+}
+.formInput2::placeholder{
+	color: rgba(0,0,0,0.6);
+}
 .inputHalf input{
 	display: inline;
 	width: 30%;
@@ -358,4 +370,15 @@ Second color is text
 	margin: 150px 0 0;
 	color: white;
 }
+/**********************************
+**** WAITING FOR PICKUP PAGE   ****
+***********************************/
+.blueText .statusMsg,
+.blueText .rideInfoContainerTitle,
+.blueText .rideInfoSubtitle{
+	color: #309EB9;
+}
+/***********************
+**** REVIEW PAGES   ****
+************************/
 

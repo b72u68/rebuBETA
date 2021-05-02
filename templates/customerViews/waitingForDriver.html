@@ -8,7 +8,7 @@
 {% endblock %}
 
 {% block content %}
-  <div class="container-fluid driver-bg">
+  <div class="container-fluid user-bg blueText">
       
     <!-- NAVAGATION BAR -->
     <nav id="myTopnav" class="homePageNav">
@@ -25,43 +25,27 @@
       <a>swith to customer</a>
     </div>
     <!-- STATUS MESSAGE -->
-    <h2 class="statusMsg">Ride Details</h2>
+    <h2 class="statusMsg">Driver is picking you up...</h2>
     <!-- GOOGLE API SCREEN -->
     <div id="map"></div>
 
     <!-- RIDE INFO CONTAINER  -->
     <div class="rideInfoContainer">
-      <p class="rideInfoContainerTitle">Ride Information</p>
+      <p class="rideInfoContainerTitle">Driver Information</p>
 
       <!-- RIDE INFO -->
       <p class="rideInfoName">John Doe</p>
       <img class="rideInfoRating" src="{{url_for('static', filename='icons/rate4.svg')}}" />
-      <p class="rideInfoDistance">0.3 miles away</p>
       
-      <p class="rideInfoSubtitle">Pickup Location</p>
+      <p class="rideInfoSubtitle">License Plate</p>
       <p class="rideInfo">1234 S 49th Ave</p>
-      <p class="rideInfo"> Chicago, 60608</p>
-      
 
-      <p class="rideInfoSubtitle">Destination</p>
-      <p class="rideInfo">124 S 59th Ave</p>
-      <p class="rideInfo"> Chicago, 60608</p>
+      <p class="rideInfoSubtitle">Car Manufacturer</p>
+      <p class="rideInfo">Honda</p>
         
-      <div class="row rideDetailsContainer">
-        <div class="col-xs-4">
-          <p>1 Passanger</p>
-        </div>
-        <div class="col-xs-4">
-          <p>No Carpool</p>
-        </div>
-        <div class="col-xs-4">
-          <p>2.3 miles</p>
-        </div>
-      </div>
 
       <div class="btnContainer">
-        <button class="btnStyle1 btnGradientPurple" id="homeForm">accept</button>
-        <button class="btnStyle1 btnGreyWhite" id="homeForm">return</button>
+        <button class="btnStyle1 btnBlueWhite">refresh</button>
       </div>
         
       </div>
