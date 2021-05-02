@@ -16,13 +16,13 @@
         <p>basic information</p>
 
         <h4 class="editLabel">email</h4>
-        <input class="formInput" placeholder="jondoe@gmail.com" type="text" name="email" id="email" value="{{ customer.email }}">
+        <input class="formInput" placeholder="jondoe@gmail.com" type="text" name="email" id="email" value="{{ driver.email }}" readonly>
         <h4 class="editLabel">new password</h4>
         <input class="formInput" placeholder="********" type="password" name="password" id="password">
         <h4 class="editLabel">first name</h4>
-        <input class="formInput" placeholder="John" type="text" name="fname" id="fname" value="{{ customer.customer.fname }}">
+        <input class="formInput" placeholder="John" type="text" name="fname" id="fname" value="{{ driver.customer.fname }}">
         <h4 class="editLabel">last name</h4>
-        <input class="formInput" placeholder="Doe" type="text" name="lname" id="lname" value="{{ customer.customer.lname }}">
+        <input class="formInput" placeholder="Doe" type="text" name="lname" id="lname" value="{{ driver.customer.lname }}">
       </div>
 
       <!-- SECTION 2 -->
@@ -31,13 +31,13 @@
         <p>mailing address</p>
 
         <h4 class="editLabel">street</h4>
-        <input class="formInput" placeholder="333 S. State St." type="text" name="street" id="street" value="{{ customer.customer.street }}">
+        <input class="formInput" placeholder="333 S. State St." type="text" name="street" id="street" value="{{ driver.customer.street }}">
         <h4 class="editLabel">city</h4>
-        <input class="formInput" placeholder="Chicago" type="text" name="city" id="city" value="{{ customer.customer.city }}">
+        <input class="formInput" placeholder="Chicago" type="text" name="city" id="city" value="{{ driver.customer.city }}">
         <h4 class="editLabel">state</h4>
-        <input class="formInput" placeholder="Illinois" type="text" name="state" id="state" value="{{ customer.customer.state }}">
+        <input class="formInput" placeholder="Illinois" type="text" name="state" id="state" value="{{ driver.customer.state }}">
         <h4 class="editLabel">zip code</h4>
-        <input class="formInput" placeholder="60606" type="text" name="zip_code" id="zip_code" value="{{ customer.customer.zip_code }}">
+        <input class="formInput" placeholder="60606" type="text" name="zip_code" id="zip_code" value="{{ driver.customer.zip_code }}">
       </div>
 
       <!-- SECTION 3 -->
@@ -46,11 +46,11 @@
         <p>credit card information</p>
 
         <h4 class="editLabel">card number</h4>
-        <input class="formInput" placeholder="9032 3948 3940 2049" type="text" name="credit_card_number" id="credit_card_number" value="{{ customer.customer.credit_card_number }}">
+        <input class="formInput" placeholder="9032 3948 3940 2049" type="text" name="credit_card_number" id="credit_card_number" value="{{ driver.customer.credit_card_number }}">
         <div class="inputHalf">
-          <input class="formInput" placeholder="MM" type="text" name="expired_month" id="expired_month" minlength="1" maxlength="2" value="{{ customer.customer.expired_month }}">
-          <input class="formInput" placeholder="yyyy" type="text" name="expired_year" id="expired_year" minlength="4" maxlength="4" value="{{ customer.customer.expired_year }}">
-          <input class="formInput" placeholder="CVV" type="text" name="cvv" id="cvv" minlength="3" maxlength="3" value="{{ customer.customer.cvv }}">
+          <input class="formInput" placeholder="MM" type="text" name="expired_month" id="expired_month" minlength="1" maxlength="2" value="{{ driver.customer.expired_month }}">
+          <input class="formInput" placeholder="yyyy" type="text" name="expired_year" id="expired_year" minlength="4" maxlength="4" value="{{ driver.customer.expired_year }}">
+          <input class="formInput" placeholder="CVV" type="text" name="cvv" id="cvv" minlength="3" maxlength="3" value="{{ driver.customer.cvv }}">
         </div>
       </div>
 

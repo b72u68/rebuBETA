@@ -210,5 +210,169 @@ def switch_to_driver():
     return redirect(url_for("home"))
 
 
+@app.route("/update_account/customer", methods=["POST"])
+def update_customer():
+    global USER
+
+    email = request.form.get("email")
+    password = request.form.get("password")
+    fname = request.form.get("fname")
+    lname = request.form.get("lname")
+    street = request.form.get("street")
+    city = request.form.get("city")
+    state = request.form.get("state")
+    zip_code = request.form.get("zip_code")
+    credit_card_number = request.form.get("credit_card_number")
+    expired_month = request.form.get("expired_month")
+    expired_year = request.form.get("expired_year")
+    cvv = request.form.get("cvv")
+
+    if not password or not password.strip():
+        password = USER['customer']['password']
+
+    if not fname or not fname.strip():
+        fname = USER.customer.fname
+        password = USER['customer']['password']
+
+    if not lname or not lname.strip():
+        lname = USER['customer']['lname']
+
+    if not street or not street.strip():
+        street = USER['customer']['street']
+
+    if not city or not city.strip():
+        city = USER['customer']['city']
+
+    if not state or not state.strip():
+        state = USER['customer']['state']
+
+    if not zip_code or not zip_code.strip():
+        zip_code = USER['customer']['zip_code']
+
+    if not credit_card_number or not credit_card_number.strip():
+        credit_card_number = USER['customer']['credit_card_number']
+
+    if not expired_month or not expired_month.strip():
+        expired_month = USER['customer']['expired_month']
+
+    if not expired_year or not expired_year.strip():
+        expired_year = USER['customer']['expired_year']
+
+    if not cvv or not cvv.strip():
+        cvv = USER['customer']['cvv']
+
+    customers = db.collection("Customer")
+
+    customer = {'password': password, 'fname': fname, 'lname': lname,
+                'street': street, 'city': city, 'state': state,
+                'zip_code': zip_code,
+                'credit_card_number': credit_card_number,
+                'expired_month': int(expired_month),
+                'expired_year': int(expired_year), 'cvv': cvv,
+                'c_total_rating': USER['customer']['c_total_rating'],
+                'c_total_rides': USER['customer']['c_total_rides']}
+
+    customers.document(email).update(customer)
+
+    USER = {'email': email, 'customer': customer}
+
+    return redirect(url_for("edit_customer"))
+
+
+@app.route("/update_account/driver", methods=["POST"])
+def update_driver():
+    global USER
+
+    email = request.form.get("email")
+    password = request.form.get("password")
+    fname = request.form.get("fname")
+    lname = request.form.get("lname")
+    street = request.form.get("street")
+    city = request.form.get("city")
+    state = request.form.get("state")
+    zip_code = request.form.get("zip_code")
+    credit_card_number = request.form.get("credit_card_number")
+    expired_month = request.form.get("expired_month")
+    expired_year = request.form.get("expired_year")
+    cvv = request.form.get("cvv")
+
+    license_plate = request.form.get("license_plate")
+    car_manufacturer = request.form.get("license_plate")
+    total_seats = request.form.get("total_seats")
+    car_description = request.form.get("car_description")
+
+    if not password or not password.strip():
+        password = USER['customer']['password']
+
+    if not fname or not fname.strip():
+        fname = USER.customer.fname
+        password = USER['customer']['password']
+
+    if not lname or not lname.strip():
+        lname = USER['customer']['lname']
+
+    if not street or not street.strip():
+        street = USER['customer']['street']
+
+    if not city or not city.strip():
+        city = USER['customer']['city']
+
+    if not state or not state.strip():
+        state = USER['customer']['state']
+
+    if not zip_code or not zip_code.strip():
+        zip_code = USER['customer']['zip_code']
+
+    if not credit_card_number or not credit_card_number.strip():
+        credit_card_number = USER['customer']['credit_card_number']
+
+    if not expired_month or not expired_month.strip():
+        expired_month = USER['customer']['expired_month']
+
+    if not expired_year or not expired_year.strip():
+        expired_year = USER['customer']['expired_year']
+
+    if not cvv or not cvv.strip():
+        cvv = USER['customer']['cvv']
+
+    if not license_plate or not license_plate.strip():
+        license_plate = USER['driver']['license_plate']
+
+    if not car_manufacturer or not car_manufacturer.strip():
+        car_manufacturer = USER['driver']['car_manufacturer']
+
+    if not total_seats or not total_seats.strip():
+        total_seats = USER['driver']['total_seats']
+
+    if not car_description or not car_description.strip():
+        car_description = USER['driver']['car_description']
+
+    customers = db.collection("Customer")
+    drivers = db.collection("Driver")
+
+    customer = {'password': password, 'fname': fname, 'lname': lname,
+                'street': street, 'city': city, 'state': state,
+                'zip_code': zip_code,
+                'credit_card_number': credit_card_number,
+                'expired_month': int(expired_month),
+                'expired_year': int(expired_year), 'cvv': cvv,
+                'c_total_rating': USER['customer']['c_total_rating'],
+                'c_total_rides': USER['customer']['c_total_rides']}
+
+    driver = {'license_plate': license_plate, 'available': True,
+              'car_manufacturer': car_manufacturer,
+              'total_seats': int(total_seats),
+              'car_description': car_description,
+              'd_total_rating': USER['driver']['d_total_rating'],
+              'd_total_rides': USER['driver']}
+
+    customers.document(email).update(customer)
+    drivers.document(email).update(driver)
+
+    USER = {'email': email, 'customer': customer, 'driver': driver}
+
+    return redirect(url_for("edit_driver"))
+
+
 if __name__ == "__main__":
     app.run(debug=True)
