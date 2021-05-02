@@ -3,7 +3,7 @@
 {% block content %}
   <div class="container-fluid driver-bg">
     <nav>
-      <a href="#">
+      <a href="{{ url_for('home') }}">
           <span class="glyphicon glyphicon-menu-left"></span>
           <p>Home</p>
       </a>
@@ -14,44 +14,43 @@
       <div class="formSection">
         <img src="{{url_for('static', filename='numbers/1.svg')}}" />
         <p>basic information</p>
-      
+
         <h4 class="editLabel">email</h4>
-        <input class="formInput" placeholder="jondoe@gmail.com" type="text" name="emailSignup">
+        <input class="formInput" placeholder="jondoe@gmail.com" type="text" name="email" id="email" value="{{ customer.email }}">
         <h4 class="editLabel">new password</h4>
-        <input class="formInput" placeholder="********" type="password" name="passwordSignup">
+        <input class="formInput" placeholder="********" type="password" name="password" id="password">
         <h4 class="editLabel">first name</h4>
-        <input class="formInput" placeholder="John" type="text" name="firstNameSignup">
+        <input class="formInput" placeholder="John" type="text" name="fname" id="fname" value="{{ customer.customer.fname }}">
         <h4 class="editLabel">last name</h4>
-        <input class="formInput" placeholder="Doe" type="text" name="lastNameSignup">
-        <h4 class="editLabel">birthday</h4>
-        <input class="formInput" type="date" name="birthdaySignup">
+        <input class="formInput" placeholder="Doe" type="text" name="lname" id="lname" value="{{ customer.customer.lname }}">
       </div>
 
       <!-- SECTION 2 -->
       <div class="formSection">
         <img src="{{url_for('static', filename='numbers/2.svg')}}" />
         <p>mailing address</p>
-        
+
         <h4 class="editLabel">street</h4>
-        <input class="formInput" placeholder="333 S. State St." type="text" name="streetSignup">
+        <input class="formInput" placeholder="333 S. State St." type="text" name="street" id="street" value="{{ customer.customer.street }}">
         <h4 class="editLabel">city</h4>
-        <input class="formInput" placeholder="Chicago" type="password" name="citySignup">
+        <input class="formInput" placeholder="Chicago" type="text" name="city" id="city" value="{{ customer.customer.city }}">
         <h4 class="editLabel">state</h4>
-        <input class="formInput" placeholder="Illinois" type="text" name="stateSignup">
+        <input class="formInput" placeholder="Illinois" type="text" name="state" id="state" value="{{ customer.customer.state }}">
         <h4 class="editLabel">zip code</h4>
-        <input class="formInput" placeholder="60606" type="text" name="zipcodeSignup">
+        <input class="formInput" placeholder="60606" type="text" name="zip_code" id="zip_code" value="{{ customer.customer.zip_code }}">
       </div>
 
       <!-- SECTION 3 -->
       <div class="formSection">
         <img src="{{url_for('static', filename='numbers/3.svg')}}" />
         <p>credit card information</p>
-      
+
         <h4 class="editLabel">card number</h4>
-        <input class="formInput" placeholder="9032 3948 3940 2049" type="text" name="cardNumberSignup">
+        <input class="formInput" placeholder="9032 3948 3940 2049" type="text" name="credit_card_number" id="credit_card_number" value="{{ customer.customer.credit_card_number }}">
         <div class="inputHalf">
-          <input class="formInput" placeholder="exp" type="password" name="citySignup">
-          <input class="formInput" placeholder="CVV" type="text" name="cvvSignup">
+          <input class="formInput" placeholder="MM" type="text" name="expired_month" id="expired_month" minlength="1" maxlength="2" value="{{ customer.customer.expired_month }}">
+          <input class="formInput" placeholder="yyyy" type="text" name="expired_year" id="expired_year" minlength="4" maxlength="4" value="{{ customer.customer.expired_year }}">
+          <input class="formInput" placeholder="CVV" type="text" name="cvv" id="cvv" minlength="3" maxlength="3" value="{{ customer.customer.cvv }}">
         </div>
       </div>
 
@@ -59,15 +58,15 @@
       <div class="formSection">
         <img src="{{url_for('static', filename='numbers/4.svg')}}" />
         <p>car information</p>
-        
+
         <h4 class="editLabel">license plate</h4>
-        <input class="formInput" placeholder="12X343P" type="text" name="licensePlateSignup">
+        <input class="formInput" placeholder="12X343P" type="text" name="license_plate" id="license_plate" value="{{ driver.driver.license_plate }}">
         <h4 class="editLabel">car manufacturer</h4>
-        <input class="formInput" placeholder="Ford" type="password" name="manufacturorSignup">
+        <input class="formInput" placeholder="Ford" type="text" name="car_manufacturer" id="car_manufacturer" value="{{ driver.driver.car_manufacturer }}">
         <h4 class="editLabel">total seats</h4>
-        <input class="formInput" placeholder="3" type="text" name="totalSeatsSignup">
+        <input class="formInput" placeholder="3" type="number" name="total_seats" id="total_seats" min="1" max="6" value="{{ driver.driver.total_seats }}">
         <h4 class="editLabel">car description</h4>
-        <input class="formInput" placeholder="White ford with 5 seats" type="text" name="carDescriptionSignup">
+        <input class="formInput" placeholder="White ford with 5 seats" type="text" name="car_description" id="car_description" value="{{ driver.driver.car_description }}">
       </div>
 
 
@@ -98,6 +97,6 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
   </head>
   <body>
-    
+
   </body>
 </html>

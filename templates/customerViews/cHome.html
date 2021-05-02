@@ -10,7 +10,7 @@
 {% endblock %}
 
 {% block content %}
-  <div class="container-fluid user-bg">      
+  <div class="container-fluid user-bg">
     <!-- NAVAGATION BAR -->
     <nav id="myTopnav" class="homePageNav">
       <p class="navTitle">REBU</p>
@@ -20,14 +20,14 @@
     </nav>
 
     <!-- HIDDEN MENU -->
-    <div id="hiddenMenu">
-      <a>sign out</a>
-      <a>edit account info</a>
-      <a>switch to driver</a>
+    <div id="hiddenMenu" style="display: none">
+      <a href="{{ url_for('signout') }}">sign out</a>
+      <a href="{{ url_for('edit_customer') }}">edit account info</a>
+      <a href="{{ url_for('switch_to_driver') }}">switch to driver</a>
     </div>
     <!-- GOOGLE API SCREEN -->
     <div id="map"></div>
-    
+
 
     <!-- REQUEST RIDE CONTAINER  -->
     <div class="requestRideContainer">
@@ -35,7 +35,7 @@
 
       <input id="ridePickup" class="formInput" placeholder="pickup location" type="text" name="">
       <input id="rideDestination" class="formInput" placeholder="destination" type="text" name="">
-      <input class="formInput" placeholder="number of passangers (max 6)" type="text" name="">
+      <input class="formInput" placeholder="number of passangers (max 6)" type="number" min="1" max="4" name="">
 
       <div class="radioRequestRideFormContainer">
         <p>Carpool?</p>

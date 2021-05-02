@@ -3,27 +3,27 @@
 {% block content %}
   <div class="container-fluid driver-bg">
     <nav>
-      <a href="#">
+        <a href="{{ url_for('home') }}">
           <span class="glyphicon glyphicon-menu-left"></span>
           <p>Back</p>
       </a>
     </nav>
     <h3>create a driver account</h3>
-    <form>
+    <form id="driver_form" action="{{ url_for('authorize_driver') }}" method="POST">
       <!-- SECTION 1 -->
       <div class="formSection">
         <img src="{{url_for('static', filename='numbers/5.svg')}}" />
         <p>car information</p>
-      
-        <input class="formInput" placeholder="license plate" type="text" name="licensePlateSignup">
-        <input class="formInput" placeholder="car manufacturer" type="password" name="manufacturorSignup">
-        <input class="formInput" placeholder="total seats" type="text" name="totalSeatsSignup">
-        <input class="formInput" placeholder="car description" type="text" name="carDescriptionSignup">
+
+        <input class="formInput" placeholder="license plate" type="text" name="license_plate" id="license_plate" required>
+        <input class="formInput" placeholder="car manufacturer" type="text" name="car_manufacturer" id="car_manufacturer" required>
+        <input class="formInput" placeholder="total seats" type="number" name="total_seats" id="total_seats" min="1" max="6" required>
+        <input class="formInput" placeholder="car description" type="text" name="car_description" id="car_description" required>
       </div>
 
     </form>
     <div class="btnContainer">
-      <button class="btnStyle1 btnWhitePink" id="homeForm">continue</button>
+      <button type="submit" form="driver_form" class="btnStyle1 btnWhitePink" id="homeForm">continue</button>
     </div>
   </div>
 {% endblock %}

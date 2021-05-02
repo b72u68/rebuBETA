@@ -3,20 +3,19 @@
 {% block content %}
   <div class="container-fluid user-bg">
     <h1>REBU</h1>
-    <form>
+    <form id="login_form" action="{{ url_for('authorize_login') }}" method="POST">
+      <input class="homeFormInput" placeholder="email" type="text" name="email" id="email">
+      <input class="homeFormInput" placeholder="password" type="password" name="password" id="password">
 
-      <input class="homeFormInput" placeholder="email" type="text" name="emailSignIn">
-      <input class="homeFormInput" placeholder="password" type="password" name="passwordSignIn">
-      
       <div class="homeFormInputRadio">
-        <input type="radio" name="loginInAsDriver" value="">
-        <label for="male">log in as driver</label>
+        <input type="checkbox" name="is_driver" id="is_driver" value="">
+        <label for="is_driver">log in as driver</label>
       </div>
 
     </form>
     <div class="btnContainer">
-      <button class="btnStyle1 btnWhiteBlue" id="homeForm">Log In</button>
-      <button class="btnStyle1 btnBlueWhite" id="homeForm">Create Account</button>
+      <button type="submit" form="login_form" class="btnStyle1 btnWhiteBlue" id="homeForm">Log In</button>
+      <button class="btnStyle1 btnBlueWhite" id="homeForm" onclick="window.location.href='{{ url_for('signup') }}'">Create Account</button>
     </div>
   </div>
 {% endblock %}

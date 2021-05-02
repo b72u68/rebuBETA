@@ -3,45 +3,45 @@
 {% block content %}
   <div class="container-fluid user-bg">
     <nav>
-      <a href="#">
+        <a href="{{ url_for('home') }}">
           <span class="glyphicon glyphicon-menu-left"></span>
           <p>Back</p>
       </a>
     </nav>
     <h3>create a customer account</h3>
-    <form>
+    <form id="signup_form" action="{{ url_for('authorize_signup') }}" method="POST">
       <!-- SECTION 1 -->
       <div class="formSection">
         <img src="{{url_for('static', filename='numbers/1.svg')}}" />
         <p>basic information</p>
-      
-        <input class="formInput" placeholder="email" type="text" name="emailSignup">
-        <input class="formInput" placeholder="new password" type="password" name="passwordSignup">
-        <input class="formInput" placeholder="first name" type="text" name="firstNameSignup">
-        <input class="formInput" placeholder="last name" type="text" name="lastNameSignup">
+
+        <input class="formInput" placeholder="email" type="text" name="email" id="email" required>
+        <input class="formInput" placeholder="new password" type="password" name="password" id="password" required>
+        <input class="formInput" placeholder="first name" type="text" name="fname" id="fname" required>
+        <input class="formInput" placeholder="last name" type="text" name="lname" id="lname" required>
       </div>
 
       <!-- SECTION 2 -->
       <div class="formSection">
         <img src="{{url_for('static', filename='numbers/2.svg')}}" />
         <p>mailing address</p>
-      
-        <input class="formInput" placeholder="street" type="text" name="streetSignup">
-        <input class="formInput" placeholder="city" type="password" name="citySignup">
-        <input class="formInput" placeholder="state" type="text" name="stateSignup">
-        <input class="formInput" placeholder="zip code" type="text" name="zipcodeSignup">
+
+        <input class="formInput" placeholder="street" type="text" name="street" id="street" required>
+        <input class="formInput" placeholder="city" type="text" name="city" id="city" required>
+        <input class="formInput" placeholder="state" type="text" name="state" id="state" required>
+        <input class="formInput" placeholder="zip code" type="text" name="zip_code" id="zip_code" required>
       </div>
 
       <!-- SECTION 3 -->
       <div class="formSection">
         <img src="{{url_for('static', filename='numbers/3.svg')}}" />
         <p>credit card information</p>
-      
-        <input class="formInput" placeholder="card number" type="text" name="cardNumberSignup">
+
+        <input class="formInput" placeholder="card number" type="text" name="credit_card_number" id="credit_card_number" required>
         <div class="inputHalf">
-          <input class="formInput" placeholder="exp MM" type="password" name="expMM">
-          <input class="formInput" placeholder="exp YY" type="password" name="expYY">
-          <input class="formInput" placeholder="CVV" type="text" name="cvvSignup">
+          <input class="formInput" placeholder="MM" type="text" name="expired_month" id="expired_month" minlength="1" maxlength="2" required>
+          <input class="formInput" placeholder="yyyy" type="text" name="expired_year" id="expired_year" minlength="4" maxlength="4" required>
+          <input class="formInput" placeholder="CVV" type="text" name="cvv" id="cvv" minlength="3" maxlength="3" required>
         </div>
       </div>
 
@@ -49,21 +49,17 @@
       <div class="formSection">
         <img src="{{url_for('static', filename='numbers/4.svg')}}" />
         <p>sign up as driver (optional)</p>
-        
+
         <div class="radioFormContainer">
-          <input type="radio" name="driverSignup" value="yes">
+          <input type="radio" name="is_driver" id="is_driver" value="yes">
           <p>Yes</p>
-          <input type="radio" name="driverSignup" value="no">
+          <input type="radio" name="is_driver" id="is_driver" value="no">
           <p>No</p>
         </div>
       </div>
-
-
-
-
     </form>
     <div class="btnContainer">
-      <button class="btnStyle1 btnWhiteBlue" id="homeForm">continue</button>
+      <button type="submit" form="signup_form" class="btnStyle1 btnWhiteBlue" id="homeForm">continue</button>
     </div>
   </div>
 {% endblock %}
