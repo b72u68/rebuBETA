@@ -78,6 +78,15 @@ def edit_driver():
         return redirect(url_for("home"))
     return render_template("driverViews/editDriverAccount.html", driver=USER)
 
+@app.route("/view/transactions")
+def view_transactions():
+    if not USER:
+        return redirect(url_for("home"))
+    elif IS_DRIVER:
+        return render_template("driverViews/viewTransactions.html", driver=USER)
+    else:
+        return render_template("customerViews/viewTransactions.html", customer=USER)
+    
 
 @app.route("/authorize_login", methods=["POST"])
 def authorize_login():

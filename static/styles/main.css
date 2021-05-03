@@ -378,7 +378,36 @@ Second color is text
 .blueText .rideInfoSubtitle{
 	color: #309EB9;
 }
-/***********************
-**** REVIEW PAGES   ****
-************************/
+/****************************
+**** TRANSACTIONS PAGE   ****
+*****************************/
+
+.transContainer{
+	color: white;
+	border: 1px solid white;
+	margin-top: 20px;
+	padding: 0 8px 10px;
+	background-color: rgb(255, 255, 255, 0.3);
+	overflow: hidden;
+}
+.transContainer h3{
+	margin: 10px 0 20px;
+}
+.transContainer p{
+	font-size: 19px;
+}
+.transLeft{
+	float: left;
+	width: 50%;
+}
+.transRight{
+	width: 50%;
+	float: left;
+	text-align: right;
+}
+
+
+
+
+
 
