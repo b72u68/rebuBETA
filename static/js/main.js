@@ -6,10 +6,11 @@ function toggleMenu() {
     x.style.display = "none";
   }
 }
+
 function toggleStatus() {
   var x = document.getElementById("statusSubcontainerOn");
   var y = document.getElementById("statusSubcontainerOff");
-  
+
   if (x.style.display === "block") {
     x.style.display = "none";
     y.style.display = "block";
@@ -20,11 +21,12 @@ function toggleStatus() {
     toggleRides();
   }
 }
-function toggleRides(){
+
+function toggleRides() {
   var x = document.getElementsByClassName("rideRow");
   var y = document.getElementById("offlineRidesContainer");
 
-  if (x[0].style.display === "block"){
+  if (x[0].style.display === "block") {
     y.style.display = "block";
     for (i = 0; i < x.length; i++) {
       x[i].style.display = "none";
@@ -36,3 +38,4 @@ function toggleRides(){
     }
   }
 }
+

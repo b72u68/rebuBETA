@@ -1,3 +1,4 @@
+import requests
 from flask import Flask, render_template, request, url_for, redirect
 from firebase_admin import credentials, firestore, initialize_app
 
@@ -12,6 +13,8 @@ db = firestore.client()
 USER = None
 IS_DRIVER = None
 RIDE = None
+RATE = 1
+SHARE_RATE = 0.5
 
 
 @app.route("/")
@@ -26,8 +29,8 @@ def home():
 
 @app.route("/signout")
 def signout():
-    global USER, IS_DRIVER
-    USER = IS_DRIVER = None
+    global USER, IS_DRIVER, RIDE
+    USER = IS_DRIVER = RIDE = None
     return redirect(url_for("home"))
 
 
@@ -65,16 +68,13 @@ def driver_home():
 def edit_customer():
     if not USER:
         return redirect(url_for("home"))
-    print(USER['customer']['street'])
     return render_template("customerViews/editCustomerAccount.html", customer=USER)
 
 
 @app.route("/edit/driver")
 def edit_driver():
-    print(USER)
     if not USER:
         return redirect(url_for("home"))
-    print(USER['customer']['street'])
     return render_template("driverViews/editDriverAccount.html", driver=USER)
 
 
@@ -208,6 +208,48 @@ def switch_to_driver():
             IS_DRIVER = True
 
     return redirect(url_for("home"))
+
+
+@app.route("/searching_ride")
+def searching_ride():
+    if not USER:
+        return redirect(url_for("home"))
+    return render_template("/customerViews/searchingForDriver.html")
+
+
+@app.route("/book_ride", methods=["POST"])
+def book_ride():
+    global USER, RIDE
+
+    pickup = request.form.get("pickup")
+    destination = request.form.get("destination")
+    total_passengers = request.form.get("total_passengers")
+    share = request.form.get("is_share")
+
+    distance = calculate_distance(pickup, destination)
+
+    if share and share == "yes":
+        share = True
+    else:
+        share = False
+
+    if share:
+        cost = calculate_cost(int(total_passengers), distance, SHARE_RATE)
+    else:
+        cost = calculate_cost(int(total_passengers), distance, RATE)
+
+    rides = db.collection("Ride")
+
+    ride = {'customer': USER['email'], 'driver': None, 'status': 1,
+            'total_passengers': total_passengers, 'pickup': pickup,
+            'destination': destination, 'share': share, 'cost': cost,
+            'distance': distance}
+
+    doc = rides.add(ride)
+    RIDE = ride
+    RIDE['id'] = doc[1].id
+
+    return redirect(url_for("searching_ride"))
 
 
 @app.route("/update_account/customer", methods=["POST"])
@@ -359,7 +401,8 @@ def update_driver():
                 'c_total_rating': USER['customer']['c_total_rating'],
                 'c_total_rides': USER['customer']['c_total_rides']}
 
-    driver = {'license_plate': license_plate, 'available': True,
+    driver = {'license_plate': license_plate,
+              'available': USER['driver']['available'],
               'car_manufacturer': car_manufacturer,
               'total_seats': int(total_seats),
               'car_description': car_description,
@@ -372,6 +415,25 @@ def update_driver():
     USER = {'email': email, 'customer': customer, 'driver': driver}
 
     return redirect(url_for("edit_driver"))
+
+
+def calculate_distance(start, end):
+    base_url = "https://maps.googleapis.com/maps/api/directions/json?origin="
+    api_key = "&key=AIzaSyBMoGOvmm_iE2suY-AnGKx8AmVqO6vz7gg"
+
+    response = requests.get(base_url + start + "&destination="
+                            + end + api_key)
+
+    if response.status_code == 200:
+        data = response.json()
+        text = data["routes"][0]["legs"][0]["distance"]["text"]
+        return float(text.split(" ")[0])
+
+    return None
+
+
+def calculate_cost(total_passengers, distance, rate):
+    return total_passengers * distance * rate
 
 
 if __name__ == "__main__":

@@ -33,20 +33,21 @@
     <div class="requestRideContainer">
       <p class="requestRideTitle">Request Ride</p>
 
-      <input id="ridePickup" class="formInput" placeholder="pickup location" type="text" name="">
-      <input id="rideDestination" class="formInput" placeholder="destination" type="text" name="">
-      <input class="formInput" placeholder="number of passangers (max 6)" type="number" min="1" max="4" name="">
+      <form action="{{ url_for('book_ride') }}" method="POST">
+      <input name="pickup" id="ridePickup" class="formInput" placeholder="pickup location" type="text" name="" required>
+      <input name="destination" id="rideDestination" class="formInput" placeholder="destination" type="text" name="" required>
+      <input name="total_passengers" class="formInput" placeholder="number of passangers (max 6)" type="number" min="1" max="4" name="" required>
 
       <div class="radioRequestRideFormContainer">
         <p>Carpool?</p>
-        <input type="radio" name="driverSignup" value="yes">
+        <input type="radio" name="is_share" id="is_share" value="yes">
         <p>Yes</p>
-        <input type="radio" name="driverSignup" value="no">
+        <input type="radio" name="is_share" id="is_share" value="no">
         <p>No</p>
       </div>
 
       <div class="btnContainer">
-        <button class="btnStyle1 btnBlueWhite" id="homeForm">request</button>
+        <button type="submit" class="btnStyle1 btnBlueWhite" id="homeForm">request</button>
       </div>
 
     </div>
