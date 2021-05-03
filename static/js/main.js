@@ -57,11 +57,19 @@ function viewRideInfo(id) {
   rideRequestContainer = document.getElementById("rideRequestContainer");
   rideInfoContainer = document.getElementById("rideInfoContainer");
 
-  $.post("/api/get_ride_info?id=" + id, function (data) {
-    console.log(data);
-    rideRequestContainer.style.display = "none";
-    rideInfoContainer.style.display = "block";
-    document.getElementById("rideInformation").innerHTML = data;
+  navigator.geolocation.getCurrentPosition(function (position) {
+    let lat = position.coords.latitude;
+    let lng = position.coords.longitude;
+
+    $.post(
+      "/api/get_ride_info?id=" + id + "&lat=" + lat + "&lng=" + lng,
+      function (data) {
+        console.log(data);
+        rideRequestContainer.style.display = "none";
+        rideInfoContainer.style.display = "block";
+        document.getElementById("rideInformation").innerHTML = data;
+      }
+    );
   });
 }
 

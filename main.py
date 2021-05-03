@@ -504,13 +504,19 @@ def nearby_rides():
 
     rides = get_sorted_rides(origin)
 
-    return render_template("driverViews/rides.html", rides=rides)
+    available_rides = [ride for ride in rides if ride['status'] == 1]
+
+    return render_template("driverViews/rides.html", rides=available_rides)
 
 
 @app.route("/api/get_ride_info", methods=["GET", "POST"])
 def get_ride():
     customers = db.collection("Customer")
+    lat = request.args.get("lat")
+    lng = request.args.get("lng")
     id = request.args.get("id")
+
+    origin = lat + "," + lng
 
     rides = db.collection("Ride")
     ride = rides.document(id).get().to_dict()
@@ -520,6 +526,9 @@ def get_ride():
     customer = customers.document(customer_email).get().to_dict()
     ride['customer'] = {'fname': customer['fname'],
                         'lname': customer['lname']}
+
+    distance = calculate_distance(origin, ride['pickup'].replace(", ", "+").replace(" ", "+"))
+    ride['distance_from_customer'] = distance
 
     return render_template("driverViews/rideInformation.html", ride=ride)
 
