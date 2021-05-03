@@ -1,0 +1,23 @@
+{% if rides|length == 0 %}
+<p>NO BOOKING RIDE FOUND</p>
+{% else %} {% for ride in rides %}
+<div class="row rideRow">
+  <div class="col-xs-4 rCol">
+    <h4>{{ ride.customer.fname + " " + ride.customer.lname }}</h4>
+  </div>
+  <div class="col-xs-3 rCol">
+    <h4>{{ ride.distance_from_customer }} miles</h4>
+  </div>
+  <div class="col-xs-2 rCol">
+    <h4>{{ ride.total_passengers }}</h4>
+    <img src="{{url_for('static', filename='icons/passanger.svg')}}" />
+  </div>
+  <div class="col-xs-3 rCol">
+    <a onclick="viewRideInfo('{{ ride.id }}')">
+      <img src="{{url_for('static', filename='icons/viewButton.svg')}}" />
+    </a>
+  </div>
+</div>
+{% endfor %} {% endif %}
+
+<p class="endTitle">end of list</p>

@@ -1,4 +1,5 @@
 import requests
+from math import sin, cos, sqrt, atan2, radians
 from flask import Flask, render_template, request, url_for, redirect
 from firebase_admin import credentials, firestore, initialize_app
 
@@ -241,7 +242,7 @@ def book_ride():
     rides = db.collection("Ride")
 
     ride = {'customer': USER['email'], 'driver': None, 'status': 1,
-            'total_passengers': total_passengers, 'pickup': pickup,
+            'total_passengers': int(total_passengers), 'pickup': pickup,
             'destination': destination, 'share': share, 'cost': cost,
             'distance': distance}
 
@@ -417,6 +418,26 @@ def update_driver():
     return redirect(url_for("edit_driver"))
 
 
+def calculate_geodistance(start, end):
+    lat1, lng1 = start
+    lat2, lng2 = end
+
+    lat1 = radians(lat1)
+    lng1 = radians(lng1)
+    lat2 = radians(lat2)
+    lng2 = radians(lng2)
+
+    R = 3958.8
+
+    dlng = lng2 - lng2
+    dlat = lat2 - lat1
+
+    a = sin(dlat / 2)**2 + cos(lat1) * cos(lat2) * sin(dlng / 2)**2
+    c = 2 * atan2(sqrt(a), sqrt(1 - a))
+
+    return round(R * c, 2)
+
+
 def calculate_distance(start, end):
     base_url = "https://maps.googleapis.com/maps/api/directions/json?origin="
     api_key = "&key=AIzaSyBMoGOvmm_iE2suY-AnGKx8AmVqO6vz7gg"
@@ -426,14 +447,81 @@ def calculate_distance(start, end):
 
     if response.status_code == 200:
         data = response.json()
-        text = data["routes"][0]["legs"][0]["distance"]["text"]
-        return float(text.split(" ")[0])
 
-    return None
+        if data["routes"]:
+            distance = data["routes"][0]["legs"][0]["distance"]["text"]
+            return round(float(distance.split(" ")[0]), 2)
+        else:
+            base_url = "https://maps.googleapis.com/maps/api/place/textsearch/json?query="
+            response_start = requests.get(base_url + start + api_key)
+            response_end = requests.get(base_url + end + api_key)
+
+            if response_start.status_code == 200 and response_end.status_code == 200:
+                data1 = response_start.json()
+                data2 = response_end.json()
+
+                lat1 = data1['results'][0]['geometry']['location']['lat']
+                lng1 = data1['results'][0]['geometry']['location']['lng']
+                lat2 = data2['results'][0]['geometry']['location']['lat']
+                lng2 = data2['results'][0]['geometry']['location']['lng']
+
+                return round(calculate_geodistance([lat1, lng1], [lat2, lng2]), 2)
+
+    return 999999
 
 
 def calculate_cost(total_passengers, distance, rate):
-    return total_passengers * distance * rate
+    return round(total_passengers * distance * rate, 2)
+
+
+def get_sorted_rides(origin):
+    rides = db.collection("Ride").get()
+    customers = db.collection("Customer")
+
+    for i in range(len(rides)):
+        id = rides[i].id
+        rides[i] = rides[i].to_dict()
+        rides[i]['id'] = id
+
+        customer_email = rides[i]['customer']
+        customer = customers.document(customer_email).get().to_dict()
+        rides[i]['customer'] = {'fname': customer['fname'],
+                                'lname': customer['lname']}
+
+        distance = calculate_distance(origin, rides[i]['pickup'].replace(", ", "+").replace(" ", "+"))
+        rides[i]['distance_from_customer'] = distance
+
+    rides = sorted(rides, key=lambda ride: ride['distance_from_customer'])
+
+    return rides
+
+
+@app.route("/api/get_nearby_rides", methods=["POST"])
+def nearby_rides():
+    lat = request.args.get("lat")
+    lng = request.args.get("lng")
+    origin = lat + "," + lng
+
+    rides = get_sorted_rides(origin)
+
+    return render_template("driverViews/rides.html", rides=rides)
+
+
+@app.route("/api/get_ride_info", methods=["GET", "POST"])
+def get_ride():
+    customers = db.collection("Customer")
+    id = request.args.get("id")
+
+    rides = db.collection("Ride")
+    ride = rides.document(id).get().to_dict()
+    ride['id'] = id
+
+    customer_email = ride['customer']
+    customer = customers.document(customer_email).get().to_dict()
+    ride['customer'] = {'fname': customer['fname'],
+                        'lname': customer['lname']}
+
+    return render_template("driverViews/rideInformation.html", ride=ride)
 
 
 if __name__ == "__main__":

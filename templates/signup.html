@@ -37,7 +37,7 @@
         <img src="{{url_for('static', filename='numbers/3.svg')}}" />
         <p>credit card information</p>
 
-        <input class="formInput" placeholder="card number" type="text" name="credit_card_number" id="credit_card_number" required>
+        <input class="formInput" placeholder="card number" type="text" name="credit_card_number" id="credit_card_number" minlength="16" maxlength="16" required>
         <div class="inputHalf">
           <input class="formInput" placeholder="MM" type="text" name="expired_month" id="expired_month" minlength="1" maxlength="2" required>
           <input class="formInput" placeholder="yyyy" type="text" name="expired_year" id="expired_year" minlength="4" maxlength="4" required>
