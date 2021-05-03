@@ -247,8 +247,8 @@ def book_ride():
             'distance': distance}
 
     doc = rides.add(ride)
+    ride['id'] = doc[1].id
     RIDE = ride
-    RIDE['id'] = doc[1].id
 
     return redirect(url_for("searching_ride"))
 
@@ -509,15 +509,8 @@ def nearby_rides():
     return render_template("driverViews/rides.html", rides=available_rides)
 
 
-@app.route("/api/get_ride_info", methods=["GET", "POST"])
-def get_ride():
+def get_ride(id, lat=None, lng=None):
     customers = db.collection("Customer")
-    lat = request.args.get("lat")
-    lng = request.args.get("lng")
-    id = request.args.get("id")
-
-    origin = lat + "," + lng
-
     rides = db.collection("Ride")
     ride = rides.document(id).get().to_dict()
     ride['id'] = id
@@ -527,10 +520,66 @@ def get_ride():
     ride['customer'] = {'fname': customer['fname'],
                         'lname': customer['lname']}
 
-    distance = calculate_distance(origin, ride['pickup'].replace(", ", "+").replace(" ", "+"))
-    ride['distance_from_customer'] = distance
+    if lat and lng:
+        origin = lat + "," + lng
+        distance = calculate_distance(origin, ride['pickup'].replace(", ", "+").replace(" ", "+"))
+        ride['distance_from_customer'] = distance
+
+    return ride
+
+
+@app.route("/api/get_ride_info", methods=["GET", "POST"])
+def get_ride_info():
+    lat = request.args.get("lat")
+    lng = request.args.get("lng")
+    id = request.args.get("id")
+
+    ride = get_ride(id, lat, lng)
 
     return render_template("driverViews/rideInformation.html", ride=ride)
+
+
+@app.route("/pickup_screen")
+def pickup():
+    return render_template("driverViews/confirmPickup.html", ride=RIDE)
+
+
+@app.route("/accept_ride", methods=["POST"])
+def accept_ride():
+    global RIDE
+    rides = db.collection("Ride")
+
+    lat = request.args.get("lat")
+    lng = request.args.get("lng")
+    id = request.args.get("id")
+
+    ride = get_ride(id, lat, lng)
+    ride['driver'] = USER['email']
+    ride['status'] = 2
+
+    rides.document(id).update({'driver': USER['email'], 'status': 2})
+
+    RIDE = ride
+
+    return redirect(url_for("pickup"))
+
+
+@app.route("/cancel_ride", methods=["POST"])
+def cancel_ride():
+    global RIDE
+    rides = db.collection("Ride")
+
+    id = request.args.get("id")
+
+    rides.document(id).update({'status': 4})
+    RIDE = None
+
+    return redirect(url_for("driver_home"))
+
+
+@app.route("/test")
+def test():
+    return render_template("driverViews/confirmPickup.html")
 
 
 if __name__ == "__main__":
