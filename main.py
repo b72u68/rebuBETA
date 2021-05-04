@@ -745,51 +745,9 @@ def searching_driver():
     return render_template("/customerViews/searchingForDriver.html", ride=RIDE)
 
 
-@app.route("/ride/searching/refresh")
-def refresh_searching():
-    global RIDE
-
-    ride = get_ride(RIDE['id'])
-
-    if ride['status'] == 2:
-        RIDE = ride
-        return redirect(url_for("waiting_driver"))
-
-    else:
-        return redirect(url_for("searching_driver"))
-
-
 @app.route("/ride/in_transit")
 def in_transit():
     return render_template("customerViews/inTransit.html", ride=RIDE)
-
-
-@app.route("/ride/waiting/refresh")
-def refresh_waiting():
-    global RIDE
-
-    ride = get_ride(RIDE['id'])
-
-    if ride['status'] == 3:
-        RIDE = ride
-        return redirect(url_for("in_transit"))
-
-    else:
-        return redirect(url_for("waiting_driver"))
-
-
-@app.route("/ride/in_transit/refresh")
-def refresh_transit():
-    global RIDE
-
-    ride = get_ride(RIDE['id'])
-
-    if ride['status'] == 4:
-        RIDE = ride
-        return redirect(url_for("make_payment"))
-
-    else:
-        return redirect(url_for("in_transit"))
 
 
 @app.route("/ride/make_payment")
@@ -812,6 +770,25 @@ def make_payment():
     transactions.document(id).set(transaction)
 
     return redirect(url_for("driver_review"))
+
+
+@app.route("/ride/refresh")
+def refresh_ride():
+    global RIDE
+
+    ride = get_ride(RIDE['id'])
+    RIDE = ride
+
+    if ride['status'] == 1:
+        return redirect(url_for("searching_driver"))
+    elif ride['status'] == 2:
+        return redirect(url_for("waiting_driver"))
+    elif ride['status'] == 3:
+        return redirect(url_for("in_transit"))
+    elif ride['status'] == 4:
+        return redirect(url_for("make_payment"))
+    else:
+        return redirect(url_for("home"))
 
 
 @app.route("/ride/review/driver")
