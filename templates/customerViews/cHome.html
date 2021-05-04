@@ -24,6 +24,7 @@
       <a href="{{ url_for('signout') }}">sign out</a>
       <a href="{{ url_for('edit_customer') }}">edit account info</a>
       <a href="{{ url_for('view_transactions') }}">view transactions</a>
+      <a href="{{ url_for('view_fav_places') }}">favorite places</a>
       <a href="{{ url_for('switch_to_driver') }}">switch to driver</a>
     </div>
     <!-- GOOGLE API SCREEN -->
@@ -36,7 +37,17 @@
 
       <form action="{{ url_for('book_ride') }}" method="POST">
       <input name="pickup" id="ridePickup" class="formInput" placeholder="pickup location" type="text" name="" required>
-      <input name="destination" id="rideDestination" class="formInput" placeholder="destination" type="text" name="" required>
+      <input name="destination" id="rideDestination" class="formInput" placeholder="destination" type="text" name="" onchange="ersFav()">
+      
+      <select id="favPlaces" name="pickup" id="cars" onchange="ersDst()">
+        <option selected="selected">select favorite places</option>
+        <option value="volvo">232 S. 49th Ave. Chicago, Il 60804</option>
+        <option value="saab">Favorite Place 2</option>
+        <option value="mercedes">Favorite Place 3</option>
+        <option value="audi">Favorite Place 4</option>
+      </select>
+
+      
       <input name="total_passengers" class="formInput" placeholder="number of passangers (max 6)" type="number" min="1" max="4" name="" required>
 
       <div class="radioRequestRideFormContainer">

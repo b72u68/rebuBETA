@@ -1,0 +1,51 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <div class="container-fluid user-bg">
+    <nav>
+        <a href="{{ url_for('home') }}">
+          <span class="glyphicon glyphicon-menu-left"></span>
+          <p>Back</p>
+      </a>
+    </nav>
+    <h3>favorite places</h3>
+
+    <form action="{{ url_for('add_fav') }}" method="POST">
+      <input name="favLoc" class="formInput" placeholder="add location" type="text" name="" required>
+    </form>
+
+    
+      <button type="submit" class="btnStyle1 btnWhiteBlue" id="homeForm">add</button>
+    
+    <div class="transContainer">
+      <h3>your favorite places</h3>
+    
+      <div class="transRow">
+        <div class="favLeft">
+          <p>2948 S Michigan Ave Chicago, Il 60804</p>
+        </div>
+        <div class="favRight">
+          <a>
+            <img src="{{url_for('static', filename='icons/trashIcon.svg')}}" />
+          </a>
+        </div>
+      </div>
+      <div class="transRow">
+        <div class="favLeft">
+          <p>2948 S Michigan Ave Chicago, Il 60804</p>
+        </div>
+        <div class="favRight">
+          <a>
+            <img src="{{url_for('static', filename='icons/trashIcon.svg')}}" />
+          </a>
+        </div>
+      </div>
+
+      
+
+
+    </div>
+
+
+  </div>
+{% endblock %}

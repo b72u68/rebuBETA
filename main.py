@@ -20,12 +20,13 @@ SHARE_RATE = 0.5
 
 @app.route("/")
 def home():
-    if USER:
-        if IS_DRIVER:
-            return redirect(url_for("driver_home"))
-        return redirect(url_for("customer_home"))
+    # if USER:
+    #     if IS_DRIVER:
+    #         return redirect(url_for("driver_home"))
+    #     return redirect(url_for("customer_home"))
 
-    return render_template("home.html")
+    # return render_template("home.html")
+    return render_template("customerViews/favoritePlaces.html");
 
 
 @app.route("/signout")
@@ -86,6 +87,19 @@ def view_transactions():
         return render_template("driverViews/viewTransactions.html", driver=USER)
     else:
         return render_template("customerViews/viewTransactions.html", customer=USER)
+
+@app.route("/view/Favorites")
+def view_fav_places():
+    if not USER:
+        return redirect(url_for("home"))
+    else:
+        return render_template("customerViews/favoritePlaces.html", customer=USER)
+
+@app.route("/view/Favorites", methods=["POST"])
+def add_fav():
+    location = request.form.get("favLoc")
+
+    return redirect(url_for("add_fav"))
     
 
 @app.route("/authorize_login", methods=["POST"])
