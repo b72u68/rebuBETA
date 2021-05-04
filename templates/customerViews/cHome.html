@@ -22,7 +22,7 @@
     <!-- HIDDEN MENU -->
     <div id="hiddenMenu" style="display: none">
       <a href="{{ url_for('signout') }}">sign out</a>
-      <a href="{{ url_for('edit_customer') }}">edit account info</a>
+      <a href="{{ url_for('edit_customer') }}">view and edit account</a>
       <a href="{{ url_for('view_transactions') }}">view transactions</a>
       <a href="{{ url_for('switch_to_driver') }}">switch to driver</a>
     </div>
@@ -38,14 +38,6 @@
       <input name="pickup" id="ridePickup" class="formInput" placeholder="pickup location" type="text" name="" required>
       <input name="destination" id="rideDestination" class="formInput" placeholder="destination" type="text" name="" required>
       <input name="total_passengers" class="formInput" placeholder="number of passangers (max 6)" type="number" min="1" max="4" name="" required>
-
-      <div class="radioRequestRideFormContainer">
-        <p>Carpool?</p>
-        <input type="radio" name="is_share" id="is_share" value="yes">
-        <p>Yes</p>
-        <input type="radio" name="is_share" id="is_share" value="no">
-        <p>No</p>
-      </div>
 
       <div class="btnContainer">
         <button type="submit" class="btnStyle1 btnBlueWhite" id="homeForm">request</button>

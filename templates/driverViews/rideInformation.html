@@ -1,10 +1,13 @@
 <p class="rideInfoName">
-  {{ ride.customer.fname + " " + ride.customer.lname }}
+  {{ ride.customer_info.fname + " " + ride.customer_info.lname }}
 </p>
-<img
-  class="rideInfoRating"
-  src="{{url_for('static', filename='icons/rate4.svg')}}"
-/>
+<div class="rideInfoRating">
+  {% for i in range(ride.customer_info.rating|int) %}
+  <span class="fa fa-star" style="color: orange"></span>
+  {% endfor %} {% for i in range(5 - ride.customer_info.rating|int)%}
+  <span class="fa fa-star" style="color: lightgrey"></span>
+  {% endfor %}
+</div>
 <p class="rideInfoDistance">{{ ride.distance_from_customer }} miles away</p>
 
 <p class="rideInfoSubtitle">Pickup Location</p>
@@ -15,14 +18,10 @@
 
 <div class="row rideDetailsContainer">
   <div class="col-xs-4">
-    <p>{{ ride.total_passengers }} Passanger</p>
+    <p>{{ ride.total_passengers }} Passenger</p>
   </div>
   <div class="col-xs-4">
-    {% if ride.share %}
-    <p>Carpool Ride</p>
-    {% else %}
-    <p>No Carpool</p>
-    {% endif %}
+    <p>Price: ${{ ride.cost }}</p>
   </div>
   <div class="col-xs-4">
     <p>{{ ride.distance }} miles</p>
@@ -30,7 +29,13 @@
 </div>
 
 <div class="btnContainer">
-  <button class="btnStyle1 btnGradientPurple" id="homeForm">accept</button>
+  <button
+    class="btnStyle1 btnGradientPurple"
+    id="homeForm"
+    onclick="acceptRide('{{ ride.id }}')"
+  >
+    accept
+  </button>
   <button
     class="btnStyle1 btnGreyWhite"
     id="homeForm"

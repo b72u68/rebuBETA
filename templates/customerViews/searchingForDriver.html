@@ -5,25 +5,34 @@
     <!-- NAVAGATION BAR -->
     <nav id="myTopnav" class="homePageNav">
       <p class="navTitle">REBU</p>
-      <a id="hamburgerMenu" href="javascript:void(0);" onclick="toggleMenu()">
-        <img src="{{url_for('static', filename='icons/hamburgerMenu.svg')}}" />
-      </a>
     </nav>
 
-    <!-- HIDDEN MENU -->
-    <div id="hiddenMenu" style="display: none">
-      <a href="{{ url_for('signout') }}">sign out</a>
-      <a href="{{ url_for('edit_customer') }}">edit account info</a>
-      <a href="{{ url_for('view_transactions') }}">view transactions</a>
-      <a href="{{ url_for('switch_to_driver') }}">switch to driver</a>
+    <div class="rideInfoContainer">
+    <h2 class="rideInfoTitle">Ride Information</h2>
+    <p class="rideInfoSubtitle">Pickup Location</p>
+    <p class="rideInfo">{{ ride.pickup }}</p>
+
+    <p class="rideInfoSubtitle">Destination</p>
+    <p class="rideInfo">{{ ride.destination }}</p>
+
+    <div class="row rideDetailsContainer">
+      <div class="col-xs-4">
+        <p>{{ ride.total_passengers }} Passenger</p>
+      </div>
+      <div class="col-xs-4">
+        <p>Price: ${{ ride.cost }}</p>
+      </div>
+      <div class="col-xs-4">
+        <p>{{ ride.distance }} miles</p>
+      </div>
+    </div>
     </div>
 
     <h2 class="srchMsg">Searching For Driver...</h2>
 
-
     <!-- REFRESH BUTTON  -->
     <div class="btnContainer">
-        <button class="btnStyle1 btnWhiteBlue" id="homeForm">refresh</button>
+        <button class="btnStyle1 btnWhiteBlue" id="homeForm" onclick="window.location.href = '{{ url_for('refresh_searching') }}'">refresh</button>
     </div>
 
 

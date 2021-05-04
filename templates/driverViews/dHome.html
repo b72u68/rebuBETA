@@ -1,6 +1,7 @@
 {% extends 'base.html' %}
 
 {% block head %}
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
   <!-- menu javascript -->
   <script type="text/javascript" src="{{url_for('static', filename='js/main.js') }}"></script>
   <!-- map javascript -->
@@ -31,7 +32,7 @@
     <!-- HIDDEN MENU -->
     <div id="hiddenMenu" style="display: none">
       <a href="{{ url_for('signout') }}">sign out</a>
-      <a href="{{ url_for('edit_driver') }}">edit account info</a>
+      <a href="{{ url_for('edit_driver') }}">view and edit account</a>
       <a href="{{ url_for('view_transactions') }}">view transactions</a>
       <a href="{{ url_for('switch_to_customer') }}">switch to customer</a>
     </div>

@@ -1,6 +1,7 @@
 {% extends 'base.html' %}
 
 {% block head %}
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
   <!-- menu javascript -->
   <script type="text/javascript" src="{{url_for('static', filename='js/main.js') }}"></script>
   <!-- map javascript -->
@@ -9,22 +10,12 @@
 
 {% block content %}
   <div class="container-fluid user-bg blueText">
-      
+
     <!-- NAVAGATION BAR -->
     <nav id="myTopnav" class="homePageNav">
       <p class="navTitle">REBU</p>
-      <a id="hamburgerMenu" href="javascript:void(0);" onclick="toggleMenu()">
-        <img src="{{url_for('static', filename='icons/hamburgerMenu.svg')}}" />
-      </a>
     </nav>
 
-    <!-- HIDDEN MENU -->
-    <div id="hiddenMenu" style="display: none">
-      <a href="{{ url_for('signout') }}">sign out</a>
-      <a href="{{ url_for('edit_customer') }}">edit account info</a>
-      <a href="{{ url_for('view_transactions') }}">view transactions</a>
-      <a href="{{ url_for('switch_to_driver') }}">switch to driver</a>
-    </div>
     <!-- STATUS MESSAGE -->
     <h2 class="statusMsg">Driving to your destination...</h2>
     <!-- GOOGLE API SCREEN -->
@@ -35,20 +26,46 @@
       <p class="rideInfoContainerTitle">Driver Information</p>
 
       <!-- RIDE INFO -->
-      <p class="rideInfoName">John Doe</p>
-      <img class="rideInfoRating" src="{{url_for('static', filename='icons/rate4.svg')}}" />
-      
+      <p class="rideInfoName">{{ ride.driver_info.fname + " " + ride.driver_info.lname }}</p>
+      <div class="rideInfoRating">
+        {% for i in range(ride.driver_info.rating|int) %}
+        <span class="fa fa-star" style="color: orange"></span>
+        {% endfor %} {% for i in range(5 - ride.driver_info.rating|int)%}
+        <span class="fa fa-star" style="color: lightgrey"></span>
+        {% endfor %}
+      </div>
+
       <p class="rideInfoSubtitle">License Plate</p>
-      <p class="rideInfo">1234 S 49th Ave</p>
+      <p class="rideInfo">{{ ride.driver_info.license_plate }}</p>
 
       <p class="rideInfoSubtitle">Car Manufacturer</p>
-      <p class="rideInfo">Honda</p>
-        
+      <p class="rideInfo">{{ ride.driver_info.car_manufacturer }}</p>
+
+      <p class="rideInfoSubtitle">Car Description</p>
+      <p class="rideInfo">{{ ride.driver_info.car_description }}</p>
+
+      <p class="rideInfoSubtitle">Pickup Location</p>
+      <p class="rideInfo">{{ ride.pickup }}</p>
+
+      <p class="rideInfoSubtitle">Destination</p>
+      <p class="rideInfo">{{ ride.destination }}</p>
+
+      <div class="row rideDetailsContainer">
+        <div class="col-xs-4">
+          <p>{{ ride.total_passengers }} Passenger</p>
+        </div>
+        <div class="col-xs-4">
+          <p>Price: ${{ ride.cost }}</p>
+        </div>
+        <div class="col-xs-4">
+          <p>{{ ride.distance }} miles</p>
+        </div>
+      </div>
 
       <div class="btnContainer">
-        <button class="btnStyle1 btnBlueWhite">refresh</button>
+          <button class="btnStyle1 btnBlueWhite" onclick="window.location.href = '{{ url_for('refresh_transit') }}'">refresh</button>
       </div>
-        
+
       </div>
 
     </div>
