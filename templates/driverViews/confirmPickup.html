@@ -56,7 +56,7 @@
     </div>
 
       <div class=".btnContainer">
-      	<h3 class="question">Have you picked up John?</h3>
+        <h3 class="question">Have you picked up {{ ride.customer_info.fname }}?</h3>
 
         <button class="btnStyle1 btnGradientPurple" id="homeForm" onclick="confirmPickup('{{ ride.id }}')">yes</button>
         <button class="btnStyle1 btnGreyWhite" id="homeForm" onclick="cancelRide('{{ ride.id }}')">cancel</button>

@@ -1,3 +1,4 @@
+import datetime
 import requests
 from math import sin, cos, sqrt, atan2, radians
 from flask import Flask, render_template, request, url_for, redirect
@@ -50,7 +51,7 @@ def driver_signup():
 def customer_home():
     if not USER:
         return redirect(url_for("home"))
-    elif IS_DRIVER:
+    if IS_DRIVER:
         return redirect(url_for("dHome.html"))
     return render_template("customerViews/cHome.html")
 
@@ -82,10 +83,70 @@ def edit_driver():
 def view_transactions():
     if not USER:
         return redirect(url_for("home"))
-    elif IS_DRIVER:
-        return render_template("driverViews/viewTransactions.html", driver=USER)
+
+    customers = db.collection("Customer")
+
+    if IS_DRIVER:
+        transactions = db.collection("Transaction").where(u'receiver_email', u'==', USER['email']).get()
+
+        for i in range(len(transactions)):
+            id = transactions[i].id
+            ride = db.collection("Ride").document(id).get().to_dict()
+
+            transaction = transactions[i].to_dict()
+
+            sender_card = "X" + transaction['sender'][11:15]
+            receiver_card = "X" + transaction['receiver'][11:15]
+
+            sender_data = customers.document(transaction['sender_email']).get().to_dict()
+            sender = {'fname': sender_data['fname'],
+                      'lname': sender_data['lname'],
+                      'card': sender_card}
+
+            receiver_data = customers.document(transaction['receiver_email']).get().to_dict()
+            receiver = {'fname': receiver_data['fname'],
+                        'lname': receiver_data['lname'],
+                        'card': receiver_card}
+
+            transaction['ride'] = ride
+            transaction['sender'] = sender
+            transaction['receiver'] = receiver
+
+            transactions[i] = transaction
+
+        print(transactions)
+        return render_template("driverViews/viewTransactions.html", transactions=transactions, is_driver=IS_DRIVER)
+
     else:
-        return render_template("customerViews/viewTransactions.html", customer=USER)
+        transactions = db.collection("Transaction").where(u'sender_email', u'==', USER['email']).get()
+
+        for i in range(len(transactions)):
+            id = transactions[i].id
+            ride = db.collection("Ride").document(id).get().to_dict()
+
+            transaction = transactions[i].to_dict()
+
+            sender_card = "X" + transaction['sender'][11:15]
+            receiver_card = "X" + transaction['receiver'][11:15]
+
+            sender_data = customers.document(transaction['sender_email']).get().to_dict()
+            sender = {'fname': sender_data['fname'],
+                      'lname': sender_data['lname'],
+                      'card': sender_card}
+
+            receiver_data = customers.document(transaction['receiver_email']).get().to_dict()
+            receiver = {'fname': receiver_data['fname'],
+                        'lname': receiver_data['lname'],
+                        'card': receiver_card}
+
+            transaction['ride'] = ride
+            transaction['sender'] = sender
+            transaction['receiver'] = receiver
+
+            transactions[i] = transaction
+
+        print(transactions)
+        return render_template("customerViews/viewTransactions.html", transactions=transactions, is_driver=IS_DRIVER)
 
 
 @app.route("/authorize_login", methods=["POST"])
@@ -179,7 +240,7 @@ def authorize_driver():
 
     drivers = db.collection("Driver")
 
-    driver = {'license_plate': license_plate, 'available': True,
+    driver = {'license_plate': license_plate,
               'car_manufacturer': car_manufacturer,
               'total_seats': int(total_seats),
               'car_description': car_description, 'd_total_rating': 0,
@@ -727,10 +788,32 @@ def refresh_transit():
 
     if ride['status'] == 4:
         RIDE = ride
-        return redirect(url_for("driver_review"))
+        return redirect(url_for("make_payment"))
 
     else:
         return redirect(url_for("in_transit"))
+
+
+@app.route("/ride/make_payment")
+def make_payment():
+    transactions = db.collection("Transaction")
+    customers = db.collection("Customer")
+
+    id = RIDE['id']
+    cost = RIDE['cost']
+    current_date = datetime.datetime.now()
+    sender_data = customers.document(RIDE['customer']).get().to_dict()
+    receiver_data = customers.document(RIDE['driver']).get().to_dict()
+
+    transaction = {'date': current_date, 'cost': cost,
+                   'sender': sender_data['credit_card_number'],
+                   'sender_email': RIDE['customer'],
+                   'receiver': receiver_data['credit_card_number'],
+                   'receiver_email': RIDE['driver']}
+
+    transactions.document(id).set(transaction)
+
+    return redirect(url_for("driver_review"))
 
 
 @app.route("/ride/review/driver")
@@ -771,7 +854,7 @@ def submit_driver_review():
 
 @app.route("/test")
 def test():
-    return render_template("customerViews/inTransit.html")
+    return render_template("customerViews/reviewDriver.html")
 
 
 if __name__ == "__main__":

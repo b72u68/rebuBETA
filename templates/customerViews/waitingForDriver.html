@@ -44,6 +44,20 @@
       <p class="rideInfoSubtitle">Car Description</p>
       <p class="rideInfo">{{ ride.driver_info.car_description }}</p>
 
+      <p class="rideInfoSubtitle">Pickup Location</p>
+      <p class="rideInfo">{{ ride.pickup }}</p>
+
+      <div class="row rideDetailsContainer">
+        <div class="col-xs-4">
+          <p>{{ ride.total_passengers }} Passenger</p>
+        </div>
+        <div class="col-xs-4">
+          <p>Price: ${{ ride.cost }}</p>
+        </div>
+        <div class="col-xs-4">
+          <p>{{ ride.distance }} miles</p>
+        </div>
+      </div>
 
       <div class="btnContainer">
           <button class="btnStyle1 btnBlueWhite" onclick="window.location.href = '{{ url_for('refresh_waiting') }}'">refresh</button>
