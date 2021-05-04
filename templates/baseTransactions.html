@@ -10,6 +10,9 @@
     </nav>
     <h3>transaction history</h3>
 
+    {% if transactions|length == 0 %}
+    <h3>NO TRANSACTION FOUND</h3>
+    {% else %}
     {% for transaction in transactions %}
     <div class="transContainer">
       <h3>RIDE RECEIPT</h3>
@@ -82,6 +85,7 @@
       </div>
     </div>
     {% endfor %}
+    {% endif %}
 
 
   </div>
