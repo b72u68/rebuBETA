@@ -114,7 +114,6 @@ def view_transactions():
 
             transactions[i] = transaction
 
-        print(transactions)
         return render_template("driverViews/viewTransactions.html", transactions=transactions, is_driver=IS_DRIVER)
 
     else:
@@ -145,7 +144,6 @@ def view_transactions():
 
             transactions[i] = transaction
 
-        print(transactions)
         return render_template("customerViews/viewTransactions.html", transactions=transactions, is_driver=IS_DRIVER)
 
 
