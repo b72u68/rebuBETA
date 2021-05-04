@@ -9,22 +9,12 @@
 
 {% block content %}
   <div class="container-fluid user-bg blueText">
-      
+
     <!-- NAVAGATION BAR -->
     <nav id="myTopnav" class="homePageNav">
       <p class="navTitle">REBU</p>
-      <a id="hamburgerMenu" href="javascript:void(0);" onclick="toggleMenu()">
-        <img src="{{url_for('static', filename='icons/hamburgerMenu.svg')}}" />
-      </a>
     </nav>
 
-    <!-- HIDDEN MENU -->
-    <div id="hiddenMenu" style="display: none">
-      <a href="{{ url_for('signout') }}">sign out</a>
-      <a href="{{ url_for('edit_customer') }}">edit account info</a>
-      <a href="{{ url_for('view_transactions') }}">view transactions</a>
-      <a href="{{ url_for('switch_to_driver') }}">switch to driver</a>
-    </div>
     <!-- STATUS MESSAGE -->
     <h2 class="statusMsg">RIDE OVERVIEW</h2>
     <!-- GOOGLE API SCREEN -->
@@ -32,21 +22,38 @@
 
     <!-- RIDE INFO CONTAINER  -->
     <div class="rideInfoContainer">
-      <p class="rideInfoContainerTitle">Driver Information</p>
 
       <!-- RIDE INFO -->
-      <p class="rideInfoName">John Doe</p>
-      <img class="rideInfoRating" src="{{url_for('static', filename='icons/rate4.svg')}}" />
-      
-      <form>
-        <input id="ridePickup" class="formInput2" placeholder="rate your driver (1-5)" type="text" name="">
+    <div class="rideInfoContainer">
+      <form id="review_form" action="{{ url_for('submit_driver_review') }}" method="POST">
+
+      <p class="rideInfoContainerTitle">rate your ride</p>
+      <div class="rate">
+        <input type="radio" id="star5" name="rate" value="5" required/>
+        <label for="star5" title="text"></label>
+        <input type="radio" id="star4" name="rate" value="4" />
+        <label for="star4" title="text"></label>
+        <input type="radio" id="star3" name="rate" value="3" />
+        <label for="star3" title="text"></label>
+        <input type="radio" id="star2" name="rate" value="2" />
+        <label for="star2" title="text"></label>
+        <input type="radio" id="star1" name="rate" value="1" />
+        <label for="star1" title="text"></label>
+      </div>
+
+      <br/>
+      <br/>
+      <br/>
+
+      <textarea class="formInput2" name="feedback" id="feedback" placeholder="comments..." required></textarea>
+
       </form>
-        
+
 
       <div class="btnContainer">
-        <button class="btnStyle1 btnBlueWhite">complete</button>
+        <button form="review_form" class="btnStyle1 btnBlueWhite">complete</button>
       </div>
-        
+
       </div>
 
     </div>

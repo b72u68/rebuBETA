@@ -1,6 +1,7 @@
 {% extends 'base.html' %}
 
 {% block head %}
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 	<!-- menu javascript -->
 	<script type="text/javascript" src="{{url_for('static', filename='js/main.js') }}"></script>
   <!-- map javascript -->
@@ -9,23 +10,14 @@
 
 {% block content %}
 	<div class="container-fluid driver-bg">
-      
+
     <!-- NAVAGATION BAR -->
     <nav id="myTopnav" class="homePageNav">
       <p class="navTitle">REBU</p>
-      <a id="hamburgerMenu" href="javascript:void(0);" onclick="toggleMenu()">
-        <img src="{{url_for('static', filename='icons/hamburgerMenu.svg')}}" />
-      </a>
     </nav>
 
-    <!-- HIDDEN MENU -->
-    <div id="hiddenMenu">
-      <a>sign out</a>
-      <a>edit account info</a>
-      <a>swith to customer</a>
-    </div>
     <!-- STATUS MESSAGE -->
-    <h2 class="statusMsg">Picking up John ...</h2>
+    <h2 class="statusMsg">Picking up {{ ride.customer_info.fname }} ...</h2>
     <!-- GOOGLE API SCREEN -->
     <div id="map"></div>
 
@@ -34,21 +26,42 @@
       <p class="rideInfoContainerTitle">Ride Information</p>
 
       <!-- RIDE INFO -->
-      <p class="rideInfoName">John Doe</p>
-      <img class="rideInfoRating" src="{{url_for('static', filename='icons/rate4.svg')}}" />
-      <p class="rideInfoDistance">0.3 miles away</p>
-      
-      <p class="rideInfoSubtitle">Pickup Location</p>
-      <p class="rideInfo">1234 S 49th Ave</p>
-      <p class="rideInfo"> Chicago, 60608</p>
+    <p class="rideInfoName">
+      {{ ride.customer_info.fname + " " + ride.customer_info.lname }}
+    </p>
+
+    <div class="rideInfoRating">
+      {% for i in range(ride.customer_info.rating|int) %}
+      <span class="fa fa-star" style="color: orange"></span>
+      {% endfor %} {% for i in range(5 - ride.customer_info.rating|int)%}
+      <span class="fa fa-star" style="color: lightgrey"></span>
+      {% endfor %}
+    </div>
+
+    <p class="rideInfoDistance">{{ ride.distance_from_customer }} miles away</p>
+
+    <p class="rideInfoSubtitle">Pickup Location</p>
+    <p class="rideInfo">{{ ride.pickup }}</p>
+
+    <div class="row rideDetailsContainer">
+      <div class="col-xs-4">
+        <p>{{ ride.total_passengers }} Passenger</p>
+      </div>
+      <div class="col-xs-4">
+        <p>Price: ${{ ride.cost }}</p>
+      </div>
+      <div class="col-xs-4">
+        <p>{{ ride.distance }} miles</p>
+      </div>
+    </div>
 
       <div class=".btnContainer">
-      	<h3 class="question">Have you picked up John?</h3>
+        <h3 class="question">Have you picked up {{ ride.customer_info.fname }}?</h3>
 
-        <button class="btnStyle1 btnGradientPurple" id="homeForm">yes</button>
-        <button class="btnStyle1 btnGreyWhite" id="homeForm">cancel</button>
+        <button class="btnStyle1 btnGradientPurple" id="homeForm" onclick="confirmPickup('{{ ride.id }}')">yes</button>
+        <button class="btnStyle1 btnGreyWhite" id="homeForm" onclick="cancelRide('{{ ride.id }}')">cancel</button>
       </div>
-        
+
       </div>
 
     </div>

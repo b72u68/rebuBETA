@@ -1,3 +1,4 @@
+import datetime
 import requests
 from math import sin, cos, sqrt, atan2, radians
 from flask import Flask, render_template, request, url_for, redirect
@@ -15,18 +16,16 @@ USER = None
 IS_DRIVER = None
 RIDE = None
 RATE = 1
-SHARE_RATE = 0.5
 
 
 @app.route("/")
 def home():
-    # if USER:
-    #     if IS_DRIVER:
-    #         return redirect(url_for("driver_home"))
-    #     return redirect(url_for("customer_home"))
+    if USER:
+        if IS_DRIVER:
+            return redirect(url_for("driver_home"))
+        return redirect(url_for("customer_home"))
 
-    # return render_template("home.html")
-    return render_template("customerViews/favoritePlaces.html");
+    return render_template("home.html")
 
 
 @app.route("/signout")
@@ -52,7 +51,7 @@ def driver_signup():
 def customer_home():
     if not USER:
         return redirect(url_for("home"))
-    elif IS_DRIVER:
+    if IS_DRIVER:
         return redirect(url_for("dHome.html"))
     return render_template("customerViews/cHome.html")
 
@@ -66,41 +65,87 @@ def driver_home():
     return redirect(url_for("home"))
 
 
-@app.route("/edit/customer")
+@app.route("/account/customer")
 def edit_customer():
     if not USER:
         return redirect(url_for("home"))
     return render_template("customerViews/editCustomerAccount.html", customer=USER)
 
 
-@app.route("/edit/driver")
+@app.route("/account/driver")
 def edit_driver():
     if not USER:
         return redirect(url_for("home"))
     return render_template("driverViews/editDriverAccount.html", driver=USER)
 
+
 @app.route("/view/transactions")
 def view_transactions():
     if not USER:
         return redirect(url_for("home"))
-    elif IS_DRIVER:
-        return render_template("driverViews/viewTransactions.html", driver=USER)
+
+    customers = db.collection("Customer")
+
+    if IS_DRIVER:
+        transactions = db.collection("Transaction").where(u'receiver_email', u'==', USER['email']).get()
+
+        for i in range(len(transactions)):
+            id = transactions[i].id
+            ride = db.collection("Ride").document(id).get().to_dict()
+
+            transaction = transactions[i].to_dict()
+
+            sender_card = "X" + transaction['sender'][11:15]
+            receiver_card = "X" + transaction['receiver'][11:15]
+
+            sender_data = customers.document(transaction['sender_email']).get().to_dict()
+            sender = {'fname': sender_data['fname'],
+                      'lname': sender_data['lname'],
+                      'card': sender_card}
+
+            receiver_data = customers.document(transaction['receiver_email']).get().to_dict()
+            receiver = {'fname': receiver_data['fname'],
+                        'lname': receiver_data['lname'],
+                        'card': receiver_card}
+
+            transaction['ride'] = ride
+            transaction['sender'] = sender
+            transaction['receiver'] = receiver
+
+            transactions[i] = transaction
+
+        return render_template("driverViews/viewTransactions.html", transactions=transactions, is_driver=IS_DRIVER)
+
     else:
-        return render_template("customerViews/viewTransactions.html", customer=USER)
+        transactions = db.collection("Transaction").where(u'sender_email', u'==', USER['email']).get()
 
-@app.route("/view/Favorites")
-def view_fav_places():
-    if not USER:
-        return redirect(url_for("home"))
-    else:
-        return render_template("customerViews/favoritePlaces.html", customer=USER)
+        for i in range(len(transactions)):
+            id = transactions[i].id
+            ride = db.collection("Ride").document(id).get().to_dict()
 
-@app.route("/view/Favorites", methods=["POST"])
-def add_fav():
-    location = request.form.get("favLoc")
+            transaction = transactions[i].to_dict()
 
-    return redirect(url_for("add_fav"))
-    
+            sender_card = "X" + transaction['sender'][11:15]
+            receiver_card = "X" + transaction['receiver'][11:15]
+
+            sender_data = customers.document(transaction['sender_email']).get().to_dict()
+            sender = {'fname': sender_data['fname'],
+                      'lname': sender_data['lname'],
+                      'card': sender_card}
+
+            receiver_data = customers.document(transaction['receiver_email']).get().to_dict()
+            receiver = {'fname': receiver_data['fname'],
+                        'lname': receiver_data['lname'],
+                        'card': receiver_card}
+
+            transaction['ride'] = ride
+            transaction['sender'] = sender
+            transaction['receiver'] = receiver
+
+            transactions[i] = transaction
+
+        return render_template("customerViews/viewTransactions.html", transactions=transactions, is_driver=IS_DRIVER)
+
 
 @app.route("/authorize_login", methods=["POST"])
 def authorize_login():
@@ -193,7 +238,7 @@ def authorize_driver():
 
     drivers = db.collection("Driver")
 
-    driver = {'license_plate': license_plate, 'available': True,
+    driver = {'license_plate': license_plate,
               'car_manufacturer': car_manufacturer,
               'total_seats': int(total_seats),
               'car_description': car_description, 'd_total_rating': 0,
@@ -234,49 +279,32 @@ def switch_to_driver():
     return redirect(url_for("home"))
 
 
-@app.route("/searching_ride")
-def searching_ride():
-    if not USER:
-        return redirect(url_for("home"))
-    return render_template("/customerViews/searchingForDriver.html")
-
-
-@app.route("/book_ride", methods=["POST"])
+@app.route("/ride/book", methods=["POST"])
 def book_ride():
     global USER, RIDE
 
     pickup = request.form.get("pickup")
     destination = request.form.get("destination")
     total_passengers = request.form.get("total_passengers")
-    share = request.form.get("is_share")
 
     distance = calculate_distance(pickup, destination)
 
-    if share and share == "yes":
-        share = True
-    else:
-        share = False
-
-    if share:
-        cost = calculate_cost(int(total_passengers), distance, SHARE_RATE)
-    else:
-        cost = calculate_cost(int(total_passengers), distance, RATE)
+    cost = calculate_cost(int(total_passengers), distance, RATE)
 
     rides = db.collection("Ride")
 
     ride = {'customer': USER['email'], 'driver': None, 'status': 1,
             'total_passengers': int(total_passengers), 'pickup': pickup,
-            'destination': destination, 'share': share, 'cost': cost,
-            'distance': distance}
+            'destination': destination, 'cost': cost, 'distance': distance}
 
     doc = rides.add(ride)
     ride['id'] = doc[1].id
     RIDE = ride
 
-    return redirect(url_for("searching_ride"))
+    return redirect(url_for("searching_driver"))
 
 
-@app.route("/update_account/customer", methods=["POST"])
+@app.route("/account/customer/update", methods=["POST"])
 def update_customer():
     global USER
 
@@ -345,7 +373,7 @@ def update_customer():
     return redirect(url_for("edit_customer"))
 
 
-@app.route("/update_account/driver", methods=["POST"])
+@app.route("/account/driver/update", methods=["POST"])
 def update_driver():
     global USER
 
@@ -534,14 +562,37 @@ def nearby_rides():
 
 def get_ride(id, lat=None, lng=None):
     customers = db.collection("Customer")
+    drivers = db.collection("Driver")
     rides = db.collection("Ride")
     ride = rides.document(id).get().to_dict()
     ride['id'] = id
 
     customer_email = ride['customer']
     customer = customers.document(customer_email).get().to_dict()
-    ride['customer'] = {'fname': customer['fname'],
-                        'lname': customer['lname']}
+
+    driver_email = ride['driver']
+    driver = drivers.document(driver_email).get().to_dict()
+
+    if customer['c_total_rides'] == 0:
+        c_rating = 5
+    else:
+        c_rating = round(customer['c_total_rating'] / customer['c_total_rides'], 1)
+
+    ride['customer_info'] = {'fname': customer['fname'],
+                             'lname': customer['lname'],
+                             'rating': c_rating}
+    if driver:
+        driver_info = customers.document(driver_email).get().to_dict()
+
+        if driver['d_total_rides'] == 0:
+            d_rating = 5
+        else:
+            d_rating = round(driver['d_total_rating'] / driver['d_total_rides'], 1)
+
+        ride['driver_info'] = driver
+        ride['driver_info']['fname'] = driver_info['fname']
+        ride['driver_info']['lname'] = driver_info['lname']
+        ride['driver_info']['rating'] = d_rating
 
     if lat and lng:
         origin = lat + "," + lng
@@ -562,12 +613,12 @@ def get_ride_info():
     return render_template("driverViews/rideInformation.html", ride=ride)
 
 
-@app.route("/pickup_screen")
+@app.route("/ride/pickup/view")
 def pickup():
     return render_template("driverViews/confirmPickup.html", ride=RIDE)
 
 
-@app.route("/accept_ride", methods=["POST"])
+@app.route("/ride/accept", methods=["POST"])
 def accept_ride():
     global RIDE
     rides = db.collection("Ride")
@@ -584,25 +635,201 @@ def accept_ride():
 
     RIDE = ride
 
-    return redirect(url_for("pickup"))
+    return url_for("pickup")
 
 
-@app.route("/cancel_ride", methods=["POST"])
+@app.route("/ride/cancel", methods=["POST"])
 def cancel_ride():
     global RIDE
     rides = db.collection("Ride")
 
     id = request.args.get("id")
 
+    rides.document(id).update({'status': 5})
+    RIDE = None
+
+    return url_for("driver_home")
+
+
+@app.route("/ride/dropoff/view")
+def dropoff():
+    return render_template("driverViews/confirmDropoff.html", ride=RIDE)
+
+
+@app.route("/ride/pickup/confirm", methods=["POST"])
+def confirm_pickup():
+    global RIDE
+    rides = db.collection("Ride")
+
+    lat = request.args.get("lat")
+    lng = request.args.get("lng")
+    id = request.args.get("id")
+
+    ride = get_ride(id, lat, lng)
+    ride['driver'] = USER['email']
+    ride['status'] = 3
+
+    rides.document(id).update({'status': 3})
+
+    RIDE = ride
+
+    return url_for("dropoff")
+
+
+@app.route("/ride/dropoff/confirm", methods=["POST"])
+def confirm_dropoff():
+    global RIDE
+    rides = db.collection("Ride")
+
+    lat = request.args.get("lat")
+    lng = request.args.get("lng")
+    id = request.args.get("id")
+
+    ride = get_ride(id, lat, lng)
+    ride['driver'] = USER['email']
+    ride['status'] = 3
+
     rides.document(id).update({'status': 4})
+
+    RIDE = ride
+
+    return url_for("customer_review")
+
+
+@app.route("/ride/review/customer")
+def customer_review():
+    return render_template("driverViews/reviewCustomer.html", ride=RIDE)
+
+
+@app.route("/ride/review/customer/submit", methods=["POST"])
+def submit_customer_review():
+    global RIDE
+
+    rate = request.form.get("rate")
+    feedback = request.form.get("feedback")
+
+    if rate:
+        customers = db.collection("Customer")
+
+        customer = customers.document(RIDE['customer']).get()
+        total_rate = customer.to_dict()['c_total_rating'] + int(rate)
+        total_rides = customer.to_dict()['c_total_rides'] + 1
+
+        customers.document(RIDE['customer']).update({'c_total_rating': total_rate,
+                                                     'c_total_rides': total_rides})
+
+    if feedback:
+        feedbacks = db.collection("Feedback")
+        d_feedback = feedbacks.document(RIDE['id']).get().to_dict()
+
+        if d_feedback:
+            feedbacks.document(RIDE['id']).update({'d_feedback': feedback})
+        else:
+            feedbacks.document(RIDE['id']).set({'d_feedback': feedback})
+
     RIDE = None
 
     return redirect(url_for("driver_home"))
 
 
+@app.route("/ride/waiting")
+def waiting_driver():
+    print(RIDE)
+    return render_template("customerViews/waitingForDriver.html", ride=RIDE)
+
+
+@app.route("/ride/searching")
+def searching_driver():
+    if not USER:
+        return redirect(url_for("home"))
+    return render_template("/customerViews/searchingForDriver.html", ride=RIDE)
+
+
+@app.route("/ride/in_transit")
+def in_transit():
+    return render_template("customerViews/inTransit.html", ride=RIDE)
+
+
+@app.route("/ride/make_payment")
+def make_payment():
+    transactions = db.collection("Transaction")
+    customers = db.collection("Customer")
+
+    id = RIDE['id']
+    cost = RIDE['cost']
+    current_date = datetime.datetime.now()
+    sender_data = customers.document(RIDE['customer']).get().to_dict()
+    receiver_data = customers.document(RIDE['driver']).get().to_dict()
+
+    transaction = {'date': current_date, 'cost': cost,
+                   'sender': sender_data['credit_card_number'],
+                   'sender_email': RIDE['customer'],
+                   'receiver': receiver_data['credit_card_number'],
+                   'receiver_email': RIDE['driver']}
+
+    transactions.document(id).set(transaction)
+
+    return redirect(url_for("driver_review"))
+
+
+@app.route("/ride/refresh")
+def refresh_ride():
+    global RIDE
+
+    ride = get_ride(RIDE['id'])
+    RIDE = ride
+
+    if ride['status'] == 1:
+        return redirect(url_for("searching_driver"))
+    elif ride['status'] == 2:
+        return redirect(url_for("waiting_driver"))
+    elif ride['status'] == 3:
+        return redirect(url_for("in_transit"))
+    elif ride['status'] == 4:
+        return redirect(url_for("make_payment"))
+    else:
+        return redirect(url_for("home"))
+
+
+@app.route("/ride/review/driver")
+def driver_review():
+    return render_template("customerViews/reviewDriver.html", ride=RIDE)
+
+
+@app.route("/ride/review/driver/submit", methods=["POST"])
+def submit_driver_review():
+    global RIDE
+
+    rate = request.form.get("rate")
+    feedback = request.form.get("feedback")
+
+    if rate:
+        drivers = db.collection("Driver")
+
+        driver = drivers.document(RIDE['driver']).get()
+        total_rate = driver.to_dict()['d_total_rating'] + int(rate)
+        total_rides = driver.to_dict()['d_total_rides'] + 1
+
+        drivers.document(RIDE['driver']).update({'d_total_rating': total_rate,
+                                                 'd_total_rides': total_rides})
+
+    if feedback:
+        feedbacks = db.collection("Feedback")
+        c_feedback = feedbacks.document(RIDE['id']).get().to_dict()
+
+        if c_feedback:
+            feedbacks.document(RIDE['id']).update({'c_feedback': feedback})
+        else:
+            feedbacks.document(RIDE['id']).set({'c_feedback': feedback})
+
+    RIDE = None
+
+    return redirect(url_for("customer_home"))
+
+
 @app.route("/test")
 def test():
-    return render_template("driverViews/confirmPickup.html")
+    return render_template("customerViews/reviewDriver.html")
 
 
 if __name__ == "__main__":

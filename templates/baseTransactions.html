@@ -9,25 +9,29 @@
       </a>
     </nav>
     <h3>transaction history</h3>
-    
+
+    {% if transactions|length == 0 %}
+    <h3>NO TRANSACTION FOUND</h3>
+    {% else %}
+    {% for transaction in transactions %}
     <div class="transContainer">
       <h3>RIDE RECEIPT</h3>
-      
+
       <div class="transRow">
         <div class="transLeft">
           <p>Date:</p>
         </div>
         <div class="transRight">
-          <p>2021-03-02</p>
+            <p>{{ transaction.date.strftime('%Y-%m-%d') }}</p>
         </div>
       </div>
 
       <div class="transRow">
         <div class="transLeft">
-          <p>Passanger</p>
+          <p>Customer</p>
         </div>
         <div class="transRight">
-          <p>Kim Doe</p>
+            <p>{{ transaction.sender.fname + " " + transaction.sender.lname }}</p>
         </div>
       </div>
 
@@ -36,7 +40,7 @@
           <p>Driver</p>
         </div>
         <div class="transRight">
-          <p>John Doe</p>
+            <p>{{ transaction.receiver.fname + " " + transaction.receiver.lname }}</p>
         </div>
       </div>
 
@@ -45,7 +49,7 @@
           <p>Pick Up:</p>
         </div>
         <div class="transRight">
-          <p>123 S 4rd St, Chicago IL 60804</p>
+            <p>{{ transaction.ride.pickup }}</p>
         </div>
       </div>
 
@@ -54,45 +58,7 @@
           <p>Drop off:</p>
         </div>
         <div class="transRight">
-          <p>123 S Michigan St, Chicago IL 60804</p>
-        </div>
-      </div>
-
-      <div class="transRow">
-        <div class="transLeft">
-          <p>Start Time:</p>
-        </div>
-        <div class="transRight">
-          <p>5:00 AM</p>
-        </div>
-      </div>
-
-      <div class="transRow">
-        <div class="transLeft">
-          <p>End Time:</p>
-        </div>
-        <div class="transRight">
-          <p>6:00 AM</p>
-        </div>
-      </div>
-
-      <div class="transRow">
-        <div class="transLeft">
-          <p>Total Passangers:</p>
-        </div>
-        <div class="transRight">
-          <p>3</p>
-        </div>
-      </div>
-
-
-
-      <div class="transRow">
-        <div class="transLeft">
-          <p>Cost:</p>
-        </div>
-        <div class="transRight">
-          <p>$200</p>
+            <p>{{ transaction.ride.destination }}</p>
         </div>
       </div>
 
@@ -101,7 +67,11 @@
           <p>Card Used:</p>
         </div>
         <div class="transRight">
-          <p>XXXXXXXX9038</p>
+            {% if is_driver %}
+            <p>{{ transaction.receiver.card }}</p>
+            {% else %}
+            <p>{{ transaction.sender.card }}</p>
+            {% endif %}
         </div>
       </div>
 
@@ -110,12 +80,12 @@
           <p>TOTAL {%block userMoney %} {% endblock %}:</p>
         </div>
         <div class="transRight">
-          <p>$201</p>
+            <p>${{ transaction.ride.cost }}</p>
         </div>
       </div>
-
-
     </div>
+    {% endfor %}
+    {% endif %}
 
 
   </div>

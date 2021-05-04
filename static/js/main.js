@@ -73,10 +73,42 @@ function viewRideInfo(id) {
   });
 }
 
+function acceptRide(id) {
+  navigator.geolocation.getCurrentPosition(function (position) {
+    let lat = position.coords.latitude;
+    let lng = position.coords.longitude;
+
+    $.post(
+      "/ride/accept?id=" + id + "&lat=" + lat + "&lng=" + lng,
+      function (data) {
+        window.location.href = data;
+      }
+    );
+  });
+}
+
 function closeRideInfo() {
   rideRequestContainer = document.getElementById("rideRequestContainer");
   rideInfoContainer = document.getElementById("rideInfoContainer");
 
   rideRequestContainer.style.display = "block";
   rideInfoContainer.style.display = "none";
+}
+
+function cancelRide(id) {
+  $.post("/ride/cancel?id=" + id, function (data) {
+    window.location.href = data;
+  });
+}
+
+function confirmPickup(id) {
+  $.post("/ride/pickup/confirm?id=" + id, function (data) {
+    window.location.href = data;
+  });
+}
+
+function confirmDropoff(id) {
+  $.post("/ride/dropoff/confirm?id=" + id, function (data) {
+    window.location.href = data;
+  });
 }
