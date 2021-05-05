@@ -53,7 +53,15 @@ def customer_home():
         return redirect(url_for("home"))
     if IS_DRIVER:
         return redirect(url_for("dHome.html"))
-    return render_template("customerViews/cHome.html")
+
+    favorites = db.collection("FavoritePlaces").where(u'email', u'==', USER['email']).get()
+
+    for i in range(len(favorites)):
+        id = favorites[i].id
+        favorites[i] = favorites[i].to_dict()
+        favorites[i]['id'] = id
+
+    return render_template("customerViews/cHome.html", favorites=favorites)
 
 
 @app.route("/driver")
@@ -81,7 +89,14 @@ def edit_driver():
 
 @app.route("/view/favorite_places")
 def favorite_places():
-    return render_template("customerViews/favoritePlaces.html")
+    favorites = db.collection("FavoritePlaces").where(u'email', u'==', USER['email']).get()
+
+    for i in range(len(favorites)):
+        id = favorites[i].id
+        favorites[i] = favorites[i].to_dict()
+        favorites[i]['id'] = id
+
+    return render_template("customerViews/favoritePlaces.html", favorites=favorites)
 
 
 @app.route("/view/transactions")
@@ -119,7 +134,7 @@ def view_transactions():
 
             transactions[i] = transaction
 
-        return render_template("driverViews/viewTransactions.html", transactions=transactions, is_driver=IS_DRIVER)
+        return render_template("driverViews/viewTransactions.html", transactions=transactions)
 
     else:
         transactions = db.collection("Transaction").where(u'sender_email', u'==', USER['email']).get()
@@ -149,7 +164,7 @@ def view_transactions():
 
             transactions[i] = transaction
 
-        return render_template("customerViews/viewTransactions.html", transactions=transactions, is_driver=IS_DRIVER)
+        return render_template("customerViews/viewTransactions.html", transactions=transactions)
 
 
 @app.route("/authorize_login", methods=["POST"])
@@ -292,6 +307,8 @@ def book_ride():
     destination = request.form.get("destination")
     total_passengers = request.form.get("total_passengers")
 
+    stops = [request.form.get(x) for x in dict(request.form).keys() if x.startswith("stop")]
+
     distance = calculate_distance(pickup, destination)
 
     cost = calculate_cost(int(total_passengers), distance, RATE)
@@ -300,7 +317,8 @@ def book_ride():
 
     ride = {'customer': USER['email'], 'driver': None, 'status': 1,
             'total_passengers': int(total_passengers), 'pickup': pickup,
-            'destination': destination, 'cost': cost, 'distance': distance}
+            'destination': destination, 'cost': cost, 'distance': distance,
+            'stops': stops}
 
     doc = rides.add(ride)
     ride['id'] = doc[1].id
@@ -830,6 +848,26 @@ def submit_driver_review():
     RIDE = None
 
     return redirect(url_for("customer_home"))
+
+
+@app.route("/favorite_places/add", methods=["POST"])
+def add_favorite():
+    favorites = db.collection("FavoritePlaces")
+    location = request.form.get("favLoc")
+
+    favorites.add({'email': USER['email'], 'location': location})
+
+    return redirect(url_for("favorite_places"))
+
+
+@app.route("/favorite_places/remove", methods=["POST"])
+def remove_favorite():
+    favorites = db.collection("FavoritePlaces")
+    id = request.args.get("id")
+
+    favorites.document(id).delete()
+
+    return url_for("favorite_places")
 
 
 @app.route("/test")
