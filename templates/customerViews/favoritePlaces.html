@@ -37,7 +37,7 @@ function removeFavorite(id) {
         </div>
         <div class="favRight">
             <a style="cursor: pointer" onclick="removeFavorite('{{ favorite.id }}')">
-            <img src="{{url_for('static', filename='icons/trashIcon.svg')}}" />
+            <img class="trashCan" src="{{url_for('static', filename='icons/trashIcon.svg')}}" />
           </a>
         </div>
       </div>

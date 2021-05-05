@@ -171,6 +171,8 @@ Second color is text
   min-width: 280px;
   margin-top: 45px;
   font-size: 27px;
+  color: white;
+  text-align: center;
 }
 .homeFormInput::placeholder {
   text-align: center;
@@ -414,12 +416,14 @@ Second color is text
 /****************************
 **** TRANSACTIONS PAGE   ****
 *****************************/
-
+.transMasterContainer{
+	padding-bottom: 90px;
+}
 .transContainer {
   color: white;
   border: 1px solid white;
   margin-top: 20px;
-  padding: 0 8px 10px;
+  padding: 10px 10px;
   background-color: rgb(255, 255, 255, 0.3);
   overflow: hidden;
 }
@@ -428,6 +432,7 @@ Second color is text
 }
 .transContainer p {
   font-size: 19px;
+  margin:0;
 }
 .transLeft {
   float: left;
@@ -437,6 +442,9 @@ Second color is text
   width: 50%;
   float: left;
   text-align: right;
+}
+.trashCan{
+  margin-top: 10px;
 }
 /****************************
 **** FAVORITES PAGE   ****
