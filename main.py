@@ -220,6 +220,7 @@ def authorize_signup():
             state and zip_code and credit_card_number and expired_month and
             expired_year and cvv):
         return redirect(url_for("signup"))
+
     else:
         customers = db.collection("Customer")
 
@@ -414,7 +415,7 @@ def update_driver():
     cvv = request.form.get("cvv")
 
     license_plate = request.form.get("license_plate")
-    car_manufacturer = request.form.get("license_plate")
+    car_manufacturer = request.form.get("car_manufacturer")
     total_seats = request.form.get("total_seats")
     car_description = request.form.get("car_description")
 
@@ -477,12 +478,11 @@ def update_driver():
                 'c_total_rides': USER['customer']['c_total_rides']}
 
     driver = {'license_plate': license_plate,
-              'available': USER['driver']['available'],
               'car_manufacturer': car_manufacturer,
               'total_seats': int(total_seats),
               'car_description': car_description,
               'd_total_rating': USER['driver']['d_total_rating'],
-              'd_total_rides': USER['driver']}
+              'd_total_rides': USER['driver']['d_total_rides']}
 
     customers.document(email).update(customer)
     drivers.document(email).update(driver)

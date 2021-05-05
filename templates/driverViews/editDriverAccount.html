@@ -9,7 +9,7 @@
       </a>
     </nav>
     <h3>edit driver account</h3>
-    <form>
+    <form id="edit_form" action="{{ url_for('update_driver') }}" method="POST">
       <!-- SECTION 1 -->
       <div class="formSection">
         <img src="{{url_for('static', filename='numbers/1.svg')}}" />
@@ -72,7 +72,7 @@
 
     </form>
     <div class="btnContainer">
-      <button class="btnStyle1 btnWhitePurple" id="homeForm">submit change</button>
+      <button type="submit" form="edit_form" class="btnStyle1 btnWhitePurple" id="homeForm">submit change</button>
     </div>
   </div>
 {% endblock %}
