@@ -14,22 +14,22 @@
     </nav>
     <h3>favorite places</h3>
 
-    <form  method="POST">
+    <form >
       <input id="favInput" name="favLoc" class="formInput" placeholder="add location" type="text" name="" required>
     </form>
 
-    
+
       <button type="submit" class="btnStyle1 btnWhiteBlue" id="homeForm">add</button>
-    
+
     <div class="transContainer">
       <h3>your favorite places</h3>
-    
+
       <div class="transRow">
         <div class="favLeft">
           <p>2948 S Michigan Ave Chicago, Il 60804</p>
         </div>
         <div class="favRight">
-          <a>
+          <a style="cursor: pointer">
             <img src="{{url_for('static', filename='icons/trashIcon.svg')}}" />
           </a>
         </div>
@@ -39,15 +39,11 @@
           <p>2948 S Michigan Ave Chicago, Il 60804</p>
         </div>
         <div class="favRight">
-          <a>
+          <a style="cursor: pointer">
             <img src="{{url_for('static', filename='icons/trashIcon.svg')}}" />
           </a>
         </div>
       </div>
-
-      
-
-
     </div>
 
 

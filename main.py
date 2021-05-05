@@ -20,13 +20,12 @@ RATE = 1
 
 @app.route("/")
 def home():
-    # if USER:
-    #     if IS_DRIVER:
-    #         return redirect(url_for("driver_home"))
-    #     return redirect(url_for("customer_home"))
-    # return render_template("home.html")
+    if USER:
+        if IS_DRIVER:
+            return redirect(url_for("driver_home"))
+        return redirect(url_for("customer_home"))
 
-    return render_template("customerViews/favoritePlaces.html")
+    return render_template("home.html")
 
 
 @app.route("/signout")
@@ -78,6 +77,11 @@ def edit_driver():
     if not USER:
         return redirect(url_for("home"))
     return render_template("driverViews/editDriverAccount.html", driver=USER)
+
+
+@app.route("/view/favorite_places")
+def favorite_places():
+    return render_template("customerViews/favoritePlaces.html")
 
 
 @app.route("/view/transactions")
