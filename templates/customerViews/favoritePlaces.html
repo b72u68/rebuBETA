@@ -5,6 +5,13 @@
 {% endblock%}
 
 {% block content %}
+<script>
+function removeFavorite(id) {
+  $.post("/favorite_places/remove?id=" + id, function (data) {
+    window.location.href = data;
+  });
+}
+</script>
   <div class="container-fluid user-bg">
     <nav>
         <a href="{{ url_for('home') }}">
@@ -14,39 +21,29 @@
     </nav>
     <h3>favorite places</h3>
 
-    <form >
+    <form id="fav_form" action="{{ url_for('add_favorite') }}" method="POST">
       <input id="favInput" name="favLoc" class="formInput" placeholder="add location" type="text" name="" required>
     </form>
 
+    <button form="fav_form" type="submit" class="btnStyle1 btnWhiteBlue" id="homeForm">add</button>
 
-      <button type="submit" class="btnStyle1 btnWhiteBlue" id="homeForm">add</button>
-
+    {% if favorites|length > 0 %}
+    <h3>your favorite places</h3>
+    {% for favorite in favorites %}
     <div class="transContainer">
-      <h3>your favorite places</h3>
-
       <div class="transRow">
         <div class="favLeft">
-          <p>2948 S Michigan Ave Chicago, Il 60804</p>
+            <p>{{ favorite.location }}</p>
         </div>
         <div class="favRight">
-          <a style="cursor: pointer">
-            <img src="{{url_for('static', filename='icons/trashIcon.svg')}}" />
-          </a>
-        </div>
-      </div>
-      <div class="transRow">
-        <div class="favLeft">
-          <p>2948 S Michigan Ave Chicago, Il 60804</p>
-        </div>
-        <div class="favRight">
-          <a style="cursor: pointer">
+            <a style="cursor: pointer" onclick="removeFavorite('{{ favorite.id }}')">
             <img src="{{url_for('static', filename='icons/trashIcon.svg')}}" />
           </a>
         </div>
       </div>
     </div>
-
-
+    {% endfor %}
+    {% endif %}
   </div>
   <script
     src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBMoGOvmm_iE2suY-AnGKx8AmVqO6vz7gg&libraries=places&v=weekly"

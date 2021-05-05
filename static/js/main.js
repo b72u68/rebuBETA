@@ -112,3 +112,11 @@ function confirmDropoff(id) {
     window.location.href = data;
   });
 }
+
+function onChoosingFavoritePickup(location) {
+  document.getElementById("ridePickup").value = location;
+}
+
+function onChoosingFavoriteDest(location) {
+  document.getElementById("rideDestination").value = location;
+}

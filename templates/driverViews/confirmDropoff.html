@@ -41,6 +41,13 @@
     <p class="rideInfoSubtitle">Destination</p>
     <p class="rideInfo">{{ ride.destination }}</p>
 
+    {% if ride.stops|length > 0 %}
+    <p class="rideInfoSubtitle">Stops</p>
+    {% for stop in ride.stops %}
+    <p class="rideInfoSubtitle">stop #{{ loop.index }}</p>
+    <p class="rideInfo">{{ stop }}</p>
+    {% endfor %} {% endif %}
+
     <div class="row rideDetailsContainer">
       <div class="col-xs-4">
         <p>{{ ride.total_passengers }} Passenger</p>

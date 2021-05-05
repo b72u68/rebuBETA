@@ -35,42 +35,40 @@
     <div class="requestRideContainer">
       <p class="requestRideTitle">Request Ride</p>
 
-      <!-- PICKUP -->
-      <form action="{{ url_for('book_ride') }}" method="POST">
+      <form id="ride_form" action="{{ url_for('book_ride') }}" method="POST">
       <input name="pickup" id="ridePickup" class="formInput" placeholder="pickup location" type="text" name="" required>
-      <select id="favPlcP" name="pickup" id="cars" onchange="favPick(event)">
-        <option disabled selected>select favorite places</option>
-        <option value="232 S. 49th Ave. Chicago, Il 60804">232 S. 49th Ave. Chicago, Il 60804</option>
-        <option value="3000 North Halsted Street, Chicago, IL, USA">3000 North Halsted Street, Chicago, IL, USA</option>
-        <option value="3300 North Lincoln Avenue, Chicago, IL, USA">3300 North Lincoln Avenue, Chicago, IL, USA</option>
+      <select id="favPlcP" name="pickup" id="cars" onchange="onChoosingFavoritePickup(value); favPick(event);">
+        <option selected="selected">select favorite places</option>
+        {% for favorite in favorites %}
+        <option value="{{ favorite.location }}">{{ favorite.location }}</option>
+        {% endfor %}
       </select>
-
-
 
       <!-- DESTINATION -->
       <input name="destination" id="rideDestination" class="formInput" placeholder="destination" type="text" name="">
-      <select id="favPlcD" name="pickup" id="cars" onchange="favDest(event)">
-        <option disabled selected>select favorite places</option>
-        <option value="232 S. 49th Ave. Chicago, Il 60804">232 S. 49th Ave. Chicago, Il 60804</option>
-        <option value="3000 North Halsted Street, Chicago, IL, USA">3000 North Halsted Street, Chicago, IL, USA</option>
-        <option value="3300 North Lincoln Avenue, Chicago, IL, USA">3300 North Lincoln Avenue, Chicago, IL, USA</option>
+      <select id="favPlcD" name="pickup" id="cars" onchange="onChoosingFavoriteDest(value); favDest(event);">
+        <option selected="selected">select favorite places</option>
+        {% for favorite in favorites %}
+        <option value="{{ favorite.location }}">{{ favorite.location }}</option>
+        {% endfor %}
       </select>
+      
 
       <!-- PASSANGERS -->
       <input name="total_passengers" class="formInput" placeholder="number of passangers (max 6)" type="number" min="1" max="4" name="" required>
 
       <!-- ADDED STOPS -->
       <div id="addStopCtn"></div>
+      </form>
 
       <div class="btnContainer">
-        <button onclick="addStop()" class="btnStyle1 btnWhiteBlue2" id="homeForm">add stop</button>
-        <button type="submit" class="btnStyle1 btnBlueWhite" id="homeForm">request</button>
+        <button onclick="addStop()" class="btnStyle1 btnWhiteBlue2">add stop</button>
+        <button form="ride_form" type="submit" class="btnStyle1 btnBlueWhite" id="homeForm">request</button>
       </div>
 
     </div>
 
   </div>
-
 
   <!-- Async script executes immediately and must be after any DOM elements used in callback. -->
   <script
