@@ -20,12 +20,13 @@ RATE = 1
 
 @app.route("/")
 def home():
-    if USER:
-        if IS_DRIVER:
-            return redirect(url_for("driver_home"))
-        return redirect(url_for("customer_home"))
+    # if USER:
+    #     if IS_DRIVER:
+    #         return redirect(url_for("driver_home"))
+    #     return redirect(url_for("customer_home"))
+    # return render_template("home.html")
 
-    return render_template("home.html")
+    return render_template("customerViews/favoritePlaces.html")
 
 
 @app.route("/signout")

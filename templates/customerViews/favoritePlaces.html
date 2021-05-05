@@ -1,5 +1,9 @@
 {% extends 'base.html' %}
 
+{% block head %}
+  <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=places"></script>
+{% endblock%}
+
 {% block content %}
   <div class="container-fluid user-bg">
     <nav>
@@ -10,8 +14,8 @@
     </nav>
     <h3>favorite places</h3>
 
-    <form action="{{ url_for('add_fav') }}" method="POST">
-      <input name="favLoc" class="formInput" placeholder="add location" type="text" name="" required>
+    <form  method="POST">
+      <input id="favInput" name="favLoc" class="formInput" placeholder="add location" type="text" name="" required>
     </form>
 
     
@@ -48,4 +52,9 @@
 
 
   </div>
+  <script
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBMoGOvmm_iE2suY-AnGKx8AmVqO6vz7gg&libraries=places&v=weekly"
+    async
+  ></script>
+  <script type="text/javascript" src="{{url_for('static', filename='js/favorites.js') }}"></script>
 {% endblock %}
