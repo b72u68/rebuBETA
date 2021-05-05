@@ -1,5 +1,5 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="162" height="33" viewBox="0 0 162 33">
-  <path id="Exclusion_1" data-name="Exclusion 1" d="M16.5,33A16.5,16.5,0,0,1,10.077,1.3,16.5,16.5,0,0,1,22.922,31.7,16.4,16.4,0,0,1,16.5,33Zm0-28.975a12.475,12.475,0,1,0,8.821,3.654A12.394,12.394,0,0,0,16.5,4.025Z" fill="#19e631" opacity="0.995"/>
-  <ellipse id="Ellipse_13" data-name="Ellipse 13" cx="8.451" cy="8.451" rx="8.451" ry="8.451" transform="translate(5.418 12.238) rotate(-23)" fill="#19e631" opacity="0.995"/>
+  <path id="Exclusion_1" data-name="Exclusion 1" d="M16.5,33A16.5,16.5,0,0,1,10.077,1.3,16.5,16.5,0,0,1,22.922,31.7,16.4,16.4,0,0,1,16.5,33Zm0-28.975a12.475,12.475,0,1,0,8.821,3.654A12.394,12.394,0,0,0,16.5,4.025Z" fill="#548ED3" opacity="0.995"/>
+  <ellipse id="Ellipse_13" data-name="Ellipse 13" cx="8.451" cy="8.451" rx="8.451" ry="8.451" transform="translate(5.418 12.238) rotate(-23)" fill="#548ED3" opacity="0.995"/>
   <text id="Available" transform="translate(40 26)" fill="#fff" font-size="30" font-family="Helvetica"><tspan x="0" y="0">Available</tspan></text>
 </svg>
