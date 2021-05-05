@@ -79,6 +79,11 @@ def edit_driver():
     return render_template("driverViews/editDriverAccount.html", driver=USER)
 
 
+@app.route("/view/favorite_places")
+def favorite_places():
+    return render_template("customerViews/favoritePlaces.html")
+
+
 @app.route("/view/transactions")
 def view_transactions():
     if not USER:
