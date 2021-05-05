@@ -1,19 +1,14 @@
 /*******************
 **** FAV PLACES ****
 ********************/
-function ersPck(){
-    document.getElementById('ridePickup').value = '';
-}
-function ersFavP(){
+function favPick(e){
+    document.getElementById('ridePickup').value = e.target.value;
     document.getElementById("favPlcP").selectedIndex = 0;
 }
-function ersDst(){
-    document.getElementById('rideDestination').value = '';
+function favDest(e){
+    document.getElementById('rideDestination').value = e.target.value;
+    document.getElementById('favPlcD').selectedIndex = 0;
 }
-function ersFavD(){
-    document.getElementById("favPlcD").selectedIndex = 0;
-}
-
 /*******************
 **** ADD STOPS  ****
 ********************/
@@ -56,6 +51,9 @@ function addAutoPop(id, mrkURL){
 function init() {
     addAutoPop('ridePickup', 'http://maps.google.com/mapfiles/ms/icons/red-dot.png')
     addAutoPop('rideDestination', 'http://maps.google.com/mapfiles/ms/icons/green-dot.png')
+    // disable enter from adding stop
+    window.addEventListener('keydown',function(e){if(e.keyIdentifier=='U+000A'||e.keyIdentifier=='Enter'||e.keyCode==13){if(e.target.nodeName=='INPUT'&&e.target.type=='text'){e.preventDefault();return false;}}},true);
+ 
 
 }
 google.maps.event.addDomListener(window, 'load', init);
